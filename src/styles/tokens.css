@@ -1,0 +1,122 @@
+/* =========================================================================
+   DESIGN TOKENS — the single place for every color, font, size and radius.
+   Values are estimates from reference screenshots (only --color-sand is
+   verified). Correct any value here and the whole site updates.
+   Tailwind utilities read these same variables (see tailwind.css).
+   ========================================================================= */
+
+:root {
+  /* Surfaces */
+  --color-bg: #FFFFFF;
+  --color-sand: #E7E1D1;          /* VERIFIED: Rukita theme-color meta. Use for borders on warm panels, hero bg tint */
+  --color-sand-soft: #F6F3EA;     /* estimated: info panels (address card, room totals, Tentang Hunian) */
+  --color-surface-muted: #F4F4F2; /* estimated: skeletons, placeholder image bg */
+  --color-card-disabled: #F3F3F3; /* under-construction card bg */
+
+  /* Brand */
+  --color-primary: #15352F;       /* estimated: Rukita deep green. Primary buttons, mobile top bar, managed banner */
+  --color-primary-hover: #0F2823;
+  --color-primary-contrast: #FFFFFF;
+  --color-gold: #C9A55C;          /* estimated: accent on dark green surfaces */
+
+  /* Accents */
+  --color-teal: #0B6E69;          /* estimated (darkened from #0F8F89 to pass AA 4.5:1 on teal-soft): map pin, tag text */
+  --color-teal-soft: #E1F3F1;     /* estimated: "Unggulan" / unique-facility highlight chip background */
+  --color-price: #D33A28;         /* estimated (darkened from #E0412F to pass AA 4.5:1 on white): price emphasis */
+  --color-whatsapp: #17803F;      /* estimated (darkened from #1F9D55 so white 16px text passes AA) */
+  --color-whatsapp-hover: #116632;
+
+  /* Text */
+  --color-text: #1C1C1C;
+  --color-text-muted: #636363;    /* estimated (slightly darker than #6B6B6B for AA on sand panels) */
+  --color-text-subtle: #767676;   /* estimated (darkened from #9A9A9A to pass AA on white) */
+
+  /* Lines */
+  --color-border: #E5E2DA;
+  --color-border-strong: #CFCBC0;
+
+  /* States */
+  --color-disabled-bg: #ECECEC;
+  --color-disabled-text: #8A8A8A;
+  --color-overlay: rgba(0, 0, 0, 0.55);
+  --color-overlay-strong: rgba(0, 0, 0, 0.9);   /* lightbox */
+  --color-counter-bg: rgba(0, 0, 0, 0.55);      /* "1/6" pill */
+  --color-white-90: rgba(255, 255, 255, 0.9);   /* carousel arrows */
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-60: rgba(255, 255, 255, 0.6);
+  --color-white-15: rgba(255, 255, 255, 0.15);
+  --color-placeholder-flag: #F59E0B; /* dev-only amber outline for placeholders */
+  --color-placeholder-chip: #FEF3C7; /* placeholder chip bg (dev) */
+  --color-placeholder-chip-text: #7A4A00;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --fs-display: 32px;
+  --fs-h1: 24px;
+  --fs-h2: 20px;
+  --fs-h3: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-xs: 12px;
+  --fs-price: 22px;
+  --fs-price-card: 20px;
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px;
+
+  /* Radii */
+  --radius-sm: 8px;    /* chips, inputs */
+  --radius-md: 12px;   /* buttons, small cards */
+  --radius-lg: 16px;   /* property cards, panels, gallery */
+  --radius-xl: 24px;   /* bottom sheet top corners */
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.08);          /* ERA-style soft card */
+  --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-card-disabled: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-sticky: 0 -4px 16px rgba(0,0,0,0.10);       /* mobile bottom bar */
+  --shadow-header: 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Layout */
+  --container-max: 1200px;
+  --gutter: 16px; /* 24px ≥768, 32px ≥1024 */
+  --header-h: 64px;      /* site header (72px ≥1024) */
+  --mobile-topbar-h: 64px;
+  --tabbar-h: 48px;
+  --section-gap: 40px;   /* 64px ≥1024 */
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-reveal: 600ms;   /* scroll-reveal entrance animations */
+
+  /* z-index scale */
+  --z-tabbar: 20;
+  --z-price-card: 15;
+  --z-bottom-bar: 30;
+  --z-floating-wa: 35;
+  --z-header: 40;
+  --z-modal: 100;
+  --z-toast: 110;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 24px; }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 32px;
+    --header-h: 72px;
+    --section-gap: 64px;
+    --fs-display: 56px;
+    --fs-h1: 32px;
+    --fs-h2: 24px;
+    --fs-h3: 20px;
+    --fs-price: 24px;
+  }
+}
