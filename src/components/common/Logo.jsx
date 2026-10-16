@@ -2,6 +2,7 @@ import { BRAND } from '../../data/brand';
 import { asset } from '../../lib/assets';
 
 // Single replaceable logo. Set BRAND.logo to an image path to swap the text wordmark.
+// Text wordmark: Nura, shown in capitals (HOMY = Black, RESIDENCE = Extra Light), see common.css.
 export default function Logo({ small = false, light = false, className = '' }) {
   const cls = `logo ${small ? 'logo--small' : ''} ${light ? 'logo--light' : ''} ${className}`;
   if (BRAND.logo) {

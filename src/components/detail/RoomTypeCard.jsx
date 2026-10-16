@@ -1,9 +1,9 @@
 import { DoorClosed, Ruler, Users } from 'lucide-react';
 import { FACILITIES } from '../../data/facilities';
-import { formatRupiah } from '../../lib/format';
 import { roomsLabel } from '../../lib/property';
 import Icon from '../common/Icon';
 import ImageCarousel from '../common/ImageCarousel';
+import Rupiah from '../common/Rupiah';
 import Text from '../common/Text';
 import WhatsAppButton from '../common/WhatsAppButton';
 
@@ -50,7 +50,7 @@ export default function RoomTypeCard({ room, property, onOpenPhoto }) {
         )}
         <div className="room-card__footer">
           <p className="room-card__price">
-            <span className="price">{formatRupiah(room.price)}</span>
+            <span className="price"><Rupiah value={room.price} /></span>
             <span className="price-suffix"> /bulan</span>
           </p>
           <WhatsAppButton intent="room" property={property} room={room} className="room-card__cta" />

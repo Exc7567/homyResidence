@@ -3,25 +3,22 @@
 
 export const BRAND = {
   name: 'Homy Residence',
+  // Hero subtitle, shown under the big "HOMY RESIDENCE" headline.
   tagline: '[ISI: tagline utama, contoh: "Hunian nyaman untuk mahasiswa & profesional"]',
-  heroSubtitle:
-    '[ISI: 1-2 kalimat pengantar di hero. Contoh: "Pilih kost Homy yang paling cocok untukmu. Tanya ketersediaan langsung via WhatsApp."]',
-  blurb: '[ISI: 1-2 kalimat tentang Homy untuk footer]',
-  // heroStats: undefined,  // optional: [{ value: '...', label: '...' }]; leave undefined to hide (never invent numbers)
   domain: 'homyresidence.id',
   whatsappNumber: '6281311654066',         // digits only, international format, no plus sign
-  whatsappDisplay: '+62 813-1165-4066',
-  email: '[ISI: email kontak (opsional)]',
-  address: '[ISI: alamat kantor / pemasaran (opsional)]',
-  social: {
-    instagram: '[ISI: URL Instagram]',
-    tiktok: '[ISI: URL TikTok (opsional)]',
-    facebook: '[ISI: URL Facebook (opsional)]',
-  },
-  logo: null, // later: '/images/brand/logo.svg'
+  logo: null, // later: '/images/brand/logo.svg' (replaces the text logo everywhere)
   ogImage: '/images/brand/og-default.jpg', // placeholder file must exist (see file 08)
-  // Homepage hero photo (desktop). Later: { src: '/images/brand/hero.jpg', alt: '...' }
-  heroImage: { src: null, alt: 'Foto hunian Homy Residence (placeholder)', label: 'Hero Homy Residence' },
+  // Homepage hero: five tall photos on a curve, left to right (decorative, not links).
+  // Put the files in public/images/brand/ (portrait, about 600×860, ≤ 250 KB) and set src, e.g.
+  //   { src: '/images/brand/hero-1.jpg', alt: 'Kamar Homy Permata A7' }
+  heroPhotos: [
+    { src: null, alt: 'Foto hero 1 (placeholder)', label: 'Hero 1' },
+    { src: null, alt: 'Foto hero 2 (placeholder)', label: 'Hero 2' },
+    { src: null, alt: 'Foto hero 3 (placeholder)', label: 'Hero 3' },
+    { src: null, alt: 'Foto hero 4 (placeholder)', label: 'Hero 4' },
+    { src: null, alt: 'Foto hero 5 (placeholder)', label: 'Hero 5' },
+  ],
 };
 
 export const SHARED_FACILITY_IDS = ['ac', 'wifi', 'electricity_token'];

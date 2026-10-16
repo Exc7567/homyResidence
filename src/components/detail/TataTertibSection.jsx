@@ -1,5 +1,6 @@
 import { NOTES } from '../../data/brand';
 import { formatRupiah } from '../../lib/format';
+import { occupantsText } from '../../lib/property';
 import Reveal from '../common/Reveal';
 import Text from '../common/Text';
 
@@ -23,7 +24,7 @@ export default function TataTertibSection({ property: p, info }) {
     {
       title: 'Penghuni',
       items: [
-        { title: 'Siapa yang bisa tinggal', text: info.occupantPolicy },
+        { title: 'Siapa yang bisa tinggal', text: occupantsText(p) },
         { title: 'Tambahan penghuni', text: info.additionalOccupants },
       ],
     },

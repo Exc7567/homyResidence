@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { BRAND } from '../data/brand';
 import SiteHeader from '../components/layout/SiteHeader';
-import SiteFooter from '../components/layout/SiteFooter';
 import FloatingWhatsApp from '../components/layout/FloatingWhatsApp';
 import Hero from '../components/home/Hero';
 import PropertyGrid from '../components/home/PropertyGrid';
@@ -16,13 +15,12 @@ export default function HomePage() {
   return (
     <>
       <SiteHeader />
-      <main id="main">
+      <main id="main" className="home">
         <Hero />
         <PropertyGrid />
         <SharedFacilitiesStrip />
         <HelpBand />
       </main>
-      <SiteFooter />
       <FloatingWhatsApp />
     </>
   );

@@ -5,7 +5,6 @@ import { getHouseInfo } from '../data/houseRules';
 import { useMediaQuery } from '../lib/hooks';
 import { useOverlayState } from '../lib/useOverlayState';
 import SiteHeader from '../components/layout/SiteHeader';
-import SiteFooter from '../components/layout/SiteFooter';
 import DetailTopBar from '../components/detail/DetailTopBar';
 import SectionTabs from '../components/detail/SectionTabs';
 import Breadcrumb from '../components/detail/Breadcrumb';
@@ -85,7 +84,6 @@ export default function PropertyPage({ slug }) {
 
         <OtherProperties current={property} />
       </main>
-      <SiteFooter />
       {/* WhatsApp on this page: header "Book Now" (desktop) or the bottom bar (mobile/tablet). */}
       {!isDesktop && <MobileActionBar property={property} />}
 

@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { cardHighlights, nearestCampus, priceFrom } from '../../lib/property';
-import { formatMinutes, formatRupiah } from '../../lib/format';
+import { badgeLabel, cardHighlights, nearestCampus, priceFrom } from '../../lib/property';
+import { formatMinutes } from '../../lib/format';
 import HighlightChip from '../common/HighlightChip';
 import ImageCarousel from '../common/ImageCarousel';
+import Rupiah from '../common/Rupiah';
 import Text from '../common/Text';
 import WhatsAppButton from '../common/WhatsAppButton';
 
@@ -27,7 +28,7 @@ export default function PropertyCard({ property: p, priority = false }) {
           imgClassName="property-card__img"
         />
         <div className="property-card__badges">
-          <span className="badge badge-primary">{p.kind}</span>
+          <span className="badge badge-primary">{badgeLabel(p)}</span>
         </div>
       </div>
 
@@ -59,7 +60,7 @@ export default function PropertyCard({ property: p, priority = false }) {
         <div className="property-card__price">
           <span className="xs muted">Mulai dari</span>
           <p>
-            <span className="price property-card__price-num">{formatRupiah(priceFrom(p))}</span>
+            <span className="price property-card__price-num"><Rupiah value={priceFrom(p)} /></span>
             <span className="price-suffix"> /bulan</span>
           </p>
         </div>

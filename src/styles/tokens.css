@@ -49,17 +49,31 @@
   --color-placeholder-chip: #FEF3C7; /* placeholder chip bg (dev) */
   --color-placeholder-chip-text: #7A4A00;
 
-  /* Typography */
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --fs-display: 32px;
-  --fs-h1: 24px;
-  --fs-h2: 20px;
-  --fs-h3: 18px;
-  --fs-body: 16px;
-  --fs-small: 14px;
-  --fs-xs: 12px;
+  /* Typography (Update 03: Josefin Sans everywhere, Nura for the logo text).
+     Josefin Sans has a small x-height, so lowercase-heavy text is about 1px larger than it
+     was with Inter; digits and capitals are as tall as Inter's, so prices keep their size.
+     The previous Inter values (and how to switch back) are in FONT-AND-LAYOUT-BEFORE-UPDATE-03.md.
+     Font files and @font-face: src/styles/fonts.css. */
+  --font-sans: 'Josefin Sans', 'Century Gothic', Futura, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-logo: 'Nura', 'Josefin Sans', 'Century Gothic', system-ui, sans-serif; /* weights: 900 Black, 200 Extra Light */
+  --fs-h1: 26px;
+  --fs-h2: 22px;
+  --fs-h3: 19px;
+  --fs-body: 17px;
+  --fs-small: 15px;
+  --fs-xs: 13px;
   --fs-price: 22px;
   --fs-price-card: 20px;
+  --fs-btn: 17px;         /* buttons */
+  --fs-btn-sm: 16px;      /* small buttons (header Book Now, "Buka di Maps") */
+  --fs-chip: 14px;        /* highlight chips on cards */
+  --fs-tab: 17px;         /* detail section tabs (mobile) */
+  --fs-tab-sm: 16px;      /* detail section tabs (desktop), POI category tabs */
+  --fs-card-title: 21px;  /* property card name */
+  --ls-label: 0.08em;     /* letter-spacing of small uppercase labels */
+  --fs-logo: 20px;        /* header logo (Nura) */
+  --fs-logo-small: 16px;  /* logo on the detail gallery */
+  --fs-hero: clamp(52px, 16.4vw, 108px); /* homepage hero headline "HOMY RESIDENCE" (Nura) */
 
   /* Spacing */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
@@ -79,6 +93,9 @@
   --shadow-card-disabled: 0 1px 4px rgba(0,0,0,0.06);
   --shadow-sticky: 0 -4px 16px rgba(0,0,0,0.10);       /* mobile bottom bar */
   --shadow-header: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-pill: 0 6px 24px rgba(21, 53, 47, 0.08);           /* floating menu pill (header) */
+  --shadow-hero-btn: 0 12px 28px -12px rgba(21, 53, 47, 0.55); /* "Lihat Property" button */
+  --shadow-photo: 0 22px 40px -26px rgba(21, 53, 47, 0.45);    /* hero photo cards */
 
   /* Layout */
   --container-max: 1200px;
@@ -113,10 +130,11 @@
     --gutter: 32px;
     --header-h: 72px;
     --section-gap: 64px;
-    --fs-display: 56px;
-    --fs-h1: 32px;
-    --fs-h2: 24px;
-    --fs-h3: 20px;
+    --fs-h1: 34px;
+    --fs-h2: 26px;
+    --fs-h3: 21px;
     --fs-price: 24px;
+    --fs-logo: 22px;
+    --fs-hero: clamp(96px, min(10.4vw, 19vh), 168px);
   }
 }

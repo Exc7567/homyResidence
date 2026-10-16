@@ -39,9 +39,9 @@ const { BRAND } = await import(pathToFileURL(path.join(dataDir, 'brand.js')).hre
 const missing = (imgs = []) => imgs.filter((i) => !i?.src).length;
 
 console.log('\n=== Ringkasan foto & peta per properti ===\n');
-let imageCount = BRAND.heroImage && !BRAND.heroImage.src ? 1 : 0;
+let imageCount = missing(BRAND.heroPhotos);
 let pinCount = 0;
-if (imageCount) console.log('Brand: foto hero belum ada (BRAND.heroImage)');
+if (imageCount) console.log(`Brand: foto hero belum ada: ${imageCount} dari ${BRAND.heroPhotos.length} (BRAND.heroPhotos)`);
 if (!BRAND.logo) console.log('Brand: logo masih teks (BRAND.logo = null)');
 for (const p of PROPERTIES) {
   const gallery = missing(p.gallery);

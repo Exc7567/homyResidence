@@ -1,9 +1,11 @@
-/* Site chrome (header, footer, floating WhatsApp) and homepage sections. */
+/* Site chrome (header, floating WhatsApp) and homepage sections. */
 
 @layer components {
   .anchor-target { scroll-margin-top: calc(var(--header-h) + 8px); }
 
-  /* ---------- Site header ---------- */
+  /* ---------- Site header ----------
+     Logo left, floating pill menu centered and Book Now right (≥1024). On the homepage it is
+     transparent over the hero until the page scrolls. */
   .site-header {
     position: sticky;
     top: 0;
@@ -13,126 +15,211 @@
     backdrop-filter: saturate(1.4) blur(10px);
     -webkit-backdrop-filter: saturate(1.4) blur(10px);
     border-bottom: 1px solid var(--color-border);
-    transition: box-shadow var(--dur-base) var(--ease);
+    transition:
+      box-shadow var(--dur-base) var(--ease),
+      background-color var(--dur-base) var(--ease),
+      border-color var(--dur-base) var(--ease);
   }
   .site-header.is-scrolled { box-shadow: var(--shadow-header); }
+  .site-header--home:not(.is-scrolled) {
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
   .site-header__inner {
     height: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     gap: var(--space-4);
   }
-  .site-header__logo { display: inline-flex; align-items: center; min-height: 44px; }
+  .site-header__logo { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; }
   .site-header__nav { display: none; }
   /* Book Now: header on desktop, floating button on mobile/tablet (never both at once). */
   .site-header .site-header__cta { display: none; }
-  .site-header__cta.btn-sm { min-height: 40px; }
+  .site-header__cta { grid-column: 3; justify-self: end; }
+  .site-header__cta.btn-sm { min-height: 44px; border-radius: var(--radius-pill); padding-inline: var(--space-5); }
   .site-header--desktop-only { display: none; }
 
   @media (min-width: 1024px) {
     .site-header--desktop-only { display: block; }
     .site-header .site-header__cta { display: inline-flex; }
-    .site-header__nav { display: flex; gap: var(--space-8); }
+    .site-header__nav { display: block; }
+    .site-header__pill {
+      display: flex;
+      gap: 2px;
+      margin: 0;
+      padding: 4px;
+      list-style: none;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-pill);
+    }
     .site-header__link {
-      position: relative;
       display: inline-flex;
       align-items: center;
-      min-height: 44px;
-      font-size: 15px;
-      font-weight: 500;
+      min-height: 40px;
+      padding: 0 var(--space-5);
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-xs);
+      font-weight: 600;
+      letter-spacing: var(--ls-label);
+      text-transform: uppercase;
       color: var(--color-text);
+      transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
     }
-    .site-header__link::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 8px;
-      height: 2px;
-      background: var(--color-primary);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--dur-base) var(--ease);
-    }
-    .site-header__link:hover::after { transform: scaleX(1); }
+    .site-header__link:hover { background: var(--color-sand-soft); color: var(--color-primary); }
+    .site-header__link.is-active { background: var(--color-sand); color: var(--color-primary); }
   }
 
-  /* ---------- Hero ---------- */
+  /* ---------- Hero ----------
+     After the owner's reference: soft brand glow, big centered two-line "HOMY RESIDENCE" (Nura),
+     tagline, dark pill button, then five photos on a gentle curve. The section slides up under
+     the transparent sticky header so the glow runs behind it. */
   .hero {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
-    padding: var(--space-8) 0 var(--space-10);
-    background: linear-gradient(180deg, var(--color-sand-soft) 0%, var(--color-bg) 100%);
+    margin-top: calc(var(--header-h) * -1);
+    padding-top: calc(var(--header-h) + clamp(24px, 5.5vh, 64px));
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-sand-soft) 58%, var(--color-bg) 100%);
   }
-  .hero__blob {
+
+  /* Glow: three soft radial gradients (greens + warm sand) behind the headline. */
+  .hero__glow {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.55;
+    z-index: -1;
+    left: 50%;
+    top: calc(var(--header-h) - 4%);
+    width: min(820px, 150vw);
+    aspect-ratio: 1.2;
+    transform: translateX(-50%);
     pointer-events: none;
   }
-  .hero__blob--a {
-    width: 260px; height: 260px;
-    top: -80px; right: -60px;
-    background: var(--color-sand);
+  .hero__glow-blob { position: absolute; aspect-ratio: 1; border-radius: 50%; }
+  .hero__glow-blob--green {
+    width: 56%;
+    right: 8%;
+    top: 2%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-whatsapp) 32%, transparent) 0%, transparent 68%);
+    animation: var(--animate-float);
   }
-  .hero__blob--b {
-    width: 200px; height: 200px;
-    bottom: -60px; left: -70px;
-    background: var(--color-teal-soft);
+  .hero__glow-blob--sand {
+    width: 62%;
+    left: 4%;
+    top: 16%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 46%, transparent) 0%, transparent 68%);
+    animation: var(--animate-float-slow);
   }
-  .hero__inner { position: relative; display: grid; gap: var(--space-8); }
-  .hero__text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
-  .hero__eyebrow {
-    display: inline-flex;
-    padding: 6px 12px;
-    border-radius: var(--radius-pill);
-    background: var(--color-sand);
-    color: var(--color-primary);
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+  .hero__glow-blob--teal {
+    width: 50%;
+    left: 27%;
+    top: 38%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-teal) 24%, transparent) 0%, transparent 70%);
+    animation: var(--animate-float);
+    animation-delay: -4.5s;
   }
-  .hero__title {
-    font-size: var(--fs-display);
-    line-height: 1.1;
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: -0.02em;
-  }
-  .hero__tagline { font-size: 20px; font-weight: 500; color: var(--color-text); }
-  .hero__subtitle { color: var(--color-text-muted); max-width: 520px; }
-  .hero__actions { display: flex; flex-direction: column; gap: var(--space-3); width: 100%; margin-top: var(--space-2); }
-  .hero__btn { width: 100%; }
-  .hero__btn-arrow { transition: transform var(--dur-base) var(--ease); }
-  .hero__btn:hover .hero__btn-arrow { transform: translateY(3px); }
-  .hero__stats { display: flex; gap: var(--space-8); margin: var(--space-4) 0 0; }
-  .hero__stat { display: flex; flex-direction: column-reverse; }
-  .hero__stat-value { margin: 0; font-size: var(--fs-h2); font-weight: 700; color: var(--color-primary); }
-  .hero__stat-label { font-size: var(--fs-small); color: var(--color-text-muted); }
-  .hero__media { display: none; }
 
-  @media (min-width: 640px) {
-    .hero__actions { flex-direction: row; width: auto; }
-    .hero__btn { width: auto; }
+  .hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .hero__title {
+    font-family: var(--font-logo);
+    font-size: var(--fs-hero);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--color-primary);
   }
+  /* Trailing letter-spacing is cancelled with a negative margin so each line stays centered. */
+  .hero__title-heavy { display: block; font-weight: 900; letter-spacing: 0.02em; margin-right: -0.02em; }
+  .hero__title-light { display: block; font-weight: 200; letter-spacing: 0.04em; margin-right: -0.04em; }
+  .hero__subtitle {
+    max-width: 34ch;
+    margin-top: clamp(16px, 2.6vh, 28px);
+    font-size: clamp(17px, 0.55vw + 14px, 21px);
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+  }
+  .hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 56px;
+    margin-top: clamp(20px, 3.2vh, 32px);
+    padding: 6px 6px 6px 28px;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    font-size: var(--fs-btn);
+    font-weight: 600;
+    box-shadow: var(--shadow-hero-btn);
+    transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hero__btn:hover { background: var(--color-primary-hover); }
+  .hero__btn:active { transform: scale(0.97); }
+  .hero__btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    transition: transform var(--dur-base) var(--ease);
+  }
+  .hero__btn-icon svg { width: 20px; height: 20px; }
+  .hero__btn:hover .hero__btn-icon { transform: translateY(3px); }
+
+  /* Curved photo row. Each card is turned around its vertical axis by --k (its position from the
+     middle, -2 … 2) under one shared perspective, and lifted by --k2 (k²): the middle photo sits
+     lowest, the outer ones higher with their outer edge towards the viewer, like the inside of a
+     gentle curve. The outer photos run past the screen edges (clipped, no horizontal scroll). */
+  .hero-arc {
+    --arc-card: 24vw;
+    --arc-gap: 2vw;
+    --arc-turn: 13deg;
+    --arc-lift: 7px;
+    position: relative;
+    overflow: hidden;
+    margin-top: clamp(16px, 4.5vh, 56px);
+    padding: calc(var(--arc-lift) * 4 + 8px) 0 var(--space-6);
+  }
+  .hero-arc__track {
+    display: flex;
+    justify-content: center;
+    gap: var(--arc-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    perspective: calc(var(--arc-card) * 3.4);
+  }
+  .hero-arc__card {
+    flex: 0 0 var(--arc-card);
+    transform: translateY(calc(var(--arc-lift) * var(--k2) * -1)) rotateY(calc(var(--arc-turn) * var(--k) * -1));
+  }
+  .hero-arc__frame {
+    border-radius: clamp(14px, 2vw, 24px);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-photo);
+    background: var(--color-surface-muted);
+  }
+  .hero-arc__img { aspect-ratio: 5 / 7; height: 100%; }
+  .hero-arc__img img { height: 100%; }
+  .hero-arc .img-ph__icon { width: clamp(20px, 3vw, 32px); height: clamp(20px, 3vw, 32px); }
+  .hero-arc .img-ph__label { font-size: clamp(11px, 1.1vw, var(--fs-xs)); }
+
   @media (min-width: 1024px) {
-    .hero { padding: var(--space-16) 0 var(--space-20); }
-    .hero__inner { grid-template-columns: 55fr 45fr; align-items: center; gap: var(--space-12); }
-    .hero__media { display: block; position: relative; isolation: isolate; }
-    .hero__media::before {
-      content: '';
-      position: absolute;
-      inset: 24px -24px -24px 24px;
-      border-radius: var(--radius-xl);
-      background: var(--color-sand);
-      z-index: -1;
+    .hero-arc {
+      --arc-card: clamp(200px, 20.5vw, 440px);
+      --arc-gap: clamp(14px, 1.6vw, 32px);
+      --arc-turn: 11deg;
+      --arc-lift: 14px;
+      padding-bottom: var(--space-10);
     }
-    .hero__img { border-radius: var(--radius-xl); box-shadow: var(--shadow-card-hover); }
-    .hero__blob--a { width: 420px; height: 420px; }
-    .hero__blob--b { width: 320px; height: 320px; }
   }
 
   /* ---------- Section head ---------- */
@@ -182,7 +269,7 @@
     flex: 1;
   }
   .property-card__name {
-    font-size: 20px;
+    font-size: var(--fs-card-title);
     font-weight: 700;
     line-height: 1.3;
     display: -webkit-box;
@@ -301,37 +388,10 @@
     .help-band { flex-direction: row; align-items: center; justify-content: space-between; padding: var(--space-12); }
   }
 
-  /* ---------- Footer ---------- */
-  .site-footer {
-    background: var(--color-sand-soft);
-    border-top: 1px solid var(--color-border);
-    padding: var(--space-12) 0 var(--space-6);
-  }
-  .site-footer__grid { display: grid; gap: var(--space-8); }
-  .site-footer__col { display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
-  .site-footer__blurb { color: var(--color-text-muted); max-width: 320px; }
-  .site-footer__title { font-size: var(--fs-body); font-weight: 700; }
-  .site-footer__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-1); }
-  .site-footer__link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    color: var(--color-text);
-    transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
-  }
-  .site-footer__link:hover { color: var(--color-primary); transform: translateX(3px); }
-  .site-footer__disabled { color: var(--color-text-subtle); min-height: 44px; display: flex; align-items: center; }
-  .site-footer__contact { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; }
-  .site-footer__contact svg { flex-shrink: 0; color: var(--color-text-muted); }
-  .site-footer__social { display: flex; gap: var(--space-2); }
-  .site-footer__bottom {
-    margin-top: var(--space-10);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--color-border);
-    font-size: var(--fs-small);
-    color: var(--color-text-muted);
-  }
-  @media (min-width: 768px) { .site-footer__grid { grid-template-columns: 1.3fr 1fr 1fr; } }
+  /* The page ends with the help band (no footer). Below 1024 the floating WhatsApp button
+     sits bottom-right, so keep the band clear of it when scrolled to the end. */
+  .home { padding-bottom: calc(var(--space-16) + env(safe-area-inset-bottom)); }
+  @media (min-width: 1024px) { .home { padding-bottom: 0; } }
 
   /* ---------- Floating WhatsApp ---------- */
   .floating-wa {

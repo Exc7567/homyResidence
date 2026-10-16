@@ -1,4 +1,4 @@
-// Checks src/data against the owner's sources (UPDATE-01): room totals, Fanta only in Deluxe,
+// Checks src/data against the owner's sources (UPDATE-01, UPDATE-03): room totals, Fanta only in Deluxe,
 // and every POI route URL identical to update-md/homy-properties-poi.md. Usage: npm run verify:data
 import fs from 'node:fs';
 import { PROPERTIES } from '../src/data/properties.js';
@@ -35,11 +35,24 @@ if (fs.existsSync(src)) {
   }
   console.log(`Route URLs checked: ${checked}`);
 }
+// Update 03: owner-confirmed kost type and exact address of each kost.
+const UPDATE_03 = {
+  h14: ['putri', 'Jl. Rungkut Mejoyo Selatan IX No 15 Blok H14, Kali Rungkut, Kec. Rungkut, Surabaya, Jawa Timur 60293'],
+  alamanda: ['putri', 'Jl. Alamanda IV Blok J.3 No.13, RT.7/RW.7, Bencongan, Kecamatan Kelapa Dua, Kabupaten Tangerang, Banten 15810'],
+  parahyangan: ['campur', 'Jl. Taman Parahyangan I No.88, Binong, Kec. Curug, Kabupaten Tangerang, Banten 15810'],
+  a7: ['campur', 'Jl. Permata Sari sektor 5 Blok A7 No.33, Binong, Kec. Curug, Kabupaten Tangerang, Banten 15810'],
+};
+for (const [slug, [type, address]] of Object.entries(UPDATE_03)) {
+  const p = PROPERTIES.find((x) => x.slug === slug);
+  if (p.kostType !== type) fail(`${slug}: kostType "${p.kostType}" ≠ "${type}"`);
+  if (p.address !== address) fail(`${slug}: address differs from the owner's text`);
+}
+
 const a7 = PROPERTIES.find((p) => p.slug === 'a7').pois.find((x) => x.id === 'uph-college');
 if (a7.routeUrl !== 'https://www.google.com/maps/dir/?api=1&origin=-6.228501,106.586875&destination=-6.228131,106.611514&travelmode=two-wheeler') fail('A7 → UPH College example URL');
 
 for (const p of PROPERTIES.filter((x) => x.status === 'open')) {
-  console.log(`${p.slug.padEnd(12)} ${p.totalRooms} kamar | ${p.roomTypes.map((r) => `${r.name} ${r.units} [${r.rooms ?? 'Semua'}]`).join(' · ')}`);
+  console.log(`${p.slug.padEnd(12)} ${p.kostType} | ${p.totalRooms} kamar | ${p.roomTypes.map((r) => `${r.name} ${r.units} [${r.rooms ?? 'Semua'}]`).join(' · ')}`);
   console.log(`             ${p.pois.map((x) => `${x.category}:${x.name} ${x.minutes}`).join(' | ')}`);
 }
 if (errors) { console.error(`\n${errors} problem(s)`); process.exit(1); }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Home } from 'lucide-react';
 import { BRAND } from '../data/brand';
 import SiteHeader from '../components/layout/SiteHeader';
-import SiteFooter from '../components/layout/SiteFooter';
 
 export default function NotFoundPage() {
   useEffect(() => {
@@ -25,7 +24,6 @@ export default function NotFoundPage() {
           </Link>
         </div>
       </main>
-      <SiteFooter />
     </>
   );
 }

@@ -42,7 +42,8 @@ export default function ImageWithFallback({
         src={src}
         alt={image.alt || `Foto ${label}`}
         loading={priority ? 'eager' : 'lazy'}
-        fetchPriority={priority ? 'high' : undefined}
+        // Lowercase: React 18 does not know the camelCase prop and warns about it.
+        {...(priority ? { fetchpriority: 'high' } : {})}
         decoding="async"
         srcSet={image.srcSm ? `${asset(image.srcSm)} 400w, ${src} 800w` : undefined}
         sizes={sizes}

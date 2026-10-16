@@ -3,6 +3,7 @@
    tokens.css is unlayered, so its variables always win over Tailwind defaults
    (e.g. --font-sans, --radius-lg come from our tokens). */
 @import 'tailwindcss';
+@import './fonts.css';
 @import './tokens.css';
 @import './base.css';
 @import './common.css';

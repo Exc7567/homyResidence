@@ -4,7 +4,7 @@
 // Also regenerates sitemap.xml and robots.txt from the data (villa excluded until open).
 import fs from 'node:fs';
 import path from 'node:path';
-import { PROPERTIES } from '../src/data/properties.js';
+import { KOST_TYPES, PROPERTIES } from '../src/data/properties.js';
 import { BRAND } from '../src/data/brand.js';
 
 const SITE = (process.env.SITE_URL || `https://${BRAND.domain}`).replace(/\/$/, '');
@@ -58,7 +58,8 @@ for (const p of open) {
   const image = fs.existsSync(path.join(pub, ogRel)) ? `${SITE}${ogRel}` : DEFAULT_IMAGE;
   const html = withMeta(template, {
     title: `${p.name} | ${BRAND.name}`,
-    description: `${p.name}: kost bulanan mulai ${rp(from)}/bulan. Lihat tipe kamar, fasilitas, lokasi dan chat WhatsApp untuk booking.`,
+    // e.g. "Homy Residence H14: Kost Putri bulanan mulai Rp1.700.000/bulan. ..."
+    description: `${p.name}: ${KOST_TYPES[p.kostType]?.label ?? 'kost'} bulanan mulai ${rp(from)}/bulan. Lihat tipe kamar, fasilitas, lokasi dan chat WhatsApp untuk booking.`,
     url,
     image,
     jsonLd: {

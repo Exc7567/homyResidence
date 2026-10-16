@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import { OPEN_PROPERTIES } from '../../data/properties';
-import { formatRupiah } from '../../lib/format';
 import { priceFrom } from '../../lib/property';
 import ImageWithFallback from '../common/ImageWithFallback';
 import Reveal from '../common/Reveal';
+import Rupiah from '../common/Rupiah';
 import Text from '../common/Text';
 
 // Horizontal scroll-snap row of the other open properties (never parking info).
@@ -32,7 +32,7 @@ export default function OtherProperties({ current }) {
                   <Text value={p.locationLabel} className="mini-card__loc-text" />
                 </span>
                 <span className="small">
-                  Mulai dari <span className="price mini-card__price">{formatRupiah(priceFrom(p))}</span>
+                  Mulai dari <span className="price mini-card__price"><Rupiah value={priceFrom(p)} /></span>
                   <span className="price-suffix"> /bulan</span>
                 </span>
               </div>

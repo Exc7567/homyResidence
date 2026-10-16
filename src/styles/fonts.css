@@ -1,0 +1,83 @@
+/* Self-hosted web fonts (Update 03).
+   Files: public/fonts/*.woff2, converted 1:1 from the owner's font/ folder (no subsetting).
+   - Josefin Sans (SIL Open Font License 1.1): the whole site, via --font-sans in tokens.css.
+   - Nura: logo text only (header logo + homepage hero headline), via --font-logo.
+     Black (900) = "HOMY", Extra Light (200) = "RESIDENCE".
+   The previous font setup (Inter from Google Fonts) is recorded in
+   FONT-AND-LAYOUT-BEFORE-UPDATE-03.md, with the steps to switch back.
+
+   ascent/descent overrides: both fonts sit their capitals high in the line box, so text
+   looked too high inside buttons, badges and pills. 85% / 15% centers capitals the way
+   Inter did (browsers without support simply use the font's own metrics). */
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/fonts/JosefinSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/fonts/JosefinSans-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/fonts/JosefinSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/fonts/JosefinSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/fonts/JosefinSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Nura';
+  src: url('/fonts/Nura-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Nura';
+  src: url('/fonts/Nura-ExtraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 85%;
+  descent-override: 15%;
+  line-gap-override: 0%;
+}

@@ -23,6 +23,14 @@ const aboutPlaceholder = (name) =>
 //               Facilities shared by every room type live in the property's facilityIds (Fasilitas section).
 // Property `facilityNotes` adds a detail line under a facility row in the Fasilitas section.
 
+// Kost type (owner-confirmed, Update 03). Each kost has `kostType: 'putri' | 'campur'`.
+//   label     → badge on the homepage card and the link-preview description
+//   occupants → Tata Tertib → Penghuni → "Siapa yang bisa tinggal"
+export const KOST_TYPES = {
+  putri: { label: 'Kost Putri', occupants: 'Kost Putri (khusus putri)' },
+  campur: { label: 'Kost Campur', occupants: 'Kost Campur (putra dan putri)' },
+};
+
 export const PROPERTIES = [
   /* ------------------------------------------------ 1. A7 */
   {
@@ -30,11 +38,12 @@ export const PROPERTIES = [
     slug: 'a7',
     order: 1,
     status: 'open',                    // 'open' | 'under_construction'
-    kind: 'Kost',                      // badge text on image
+    kind: 'Kost',                      // 'Kost' | 'Villa'
+    kostType: 'campur',                // see KOST_TYPES above (badge on the homepage card, Tata Tertib, link preview)
     name: 'Homy Permata A7',
     shortName: 'Permata A7',
     locationLabel: 'Taman Permata, Binong, Tangerang',
-    address: '[ISI: alamat lengkap Homy Permata A7]',
+    address: 'Jl. Permata Sari sektor 5 Blok A7 No.33, Binong, Kec. Curug, Kabupaten Tangerang, Banten 15810',
     description: aboutPlaceholder('Homy Permata A7'),
     pin: { lat: '-6.228501', lng: '106.586875' },
     totalRooms: 18,
@@ -62,10 +71,11 @@ export const PROPERTIES = [
     order: 2,
     status: 'open',
     kind: 'Kost',
+    kostType: 'putri',
     name: 'Homy Residence H14',
     shortName: 'Residence H14',
     locationLabel: 'Kalirungkut, Surabaya',
-    address: '[ISI: alamat lengkap Homy Residence H14]',
+    address: 'Jl. Rungkut Mejoyo Selatan IX No 15 Blok H14, Kali Rungkut, Kec. Rungkut, Surabaya, Jawa Timur 60293',
     description: aboutPlaceholder('Homy Residence H14'),
     pin: { lat: '-7.321895', lng: '112.764931' },
     totalRooms: 18,
@@ -96,10 +106,11 @@ export const PROPERTIES = [
     order: 3,
     status: 'open',
     kind: 'Kost',
+    kostType: 'campur',
     name: 'Homy Parahyangan',
     shortName: 'Parahyangan',
     locationLabel: 'Taman Parahyangan, Binong, Tangerang',
-    address: '[ISI: alamat lengkap Homy Parahyangan]',
+    address: 'Jl. Taman Parahyangan I No.88, Binong, Kec. Curug, Kabupaten Tangerang, Banten 15810',
     description: aboutPlaceholder('Homy Parahyangan'),
     pin: { lat: '-6.226586', lng: '106.583741' },
     totalRooms: 14,
@@ -127,10 +138,11 @@ export const PROPERTIES = [
     order: 4,
     status: 'open',
     kind: 'Kost',
+    kostType: 'putri',
     name: 'Homy Budget Alamanda',
     shortName: 'Budget Alamanda',
     locationLabel: 'Lippo Karawaci, Tangerang',
-    address: '[ISI: alamat lengkap Homy Budget Alamanda]',
+    address: 'Jl. Alamanda IV Blok J.3 No.13, RT.7/RW.7, Bencongan, Kecamatan Kelapa Dua, Kabupaten Tangerang, Banten 15810',
     description: aboutPlaceholder('Homy Budget Alamanda'),
     pin: { lat: '-6.223237', lng: '106.604628' },
     totalRooms: 40,

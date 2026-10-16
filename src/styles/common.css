@@ -1,19 +1,23 @@
 /* Shared component styles: logo, images, carousel, lightbox, accordion, expandable, toast. */
 
 @layer components {
-  /* ---------- Logo ---------- */
+  /* ---------- Logo ----------
+     Nura, all caps: "HOMY" in Black (900), "RESIDENCE" in Extra Light (200).
+     The wider tracking keeps the thin "RESIDENCE" readable at header size. */
   .logo {
     display: inline-flex;
     align-items: baseline;
-    gap: 5px;
-    font-size: 22px;
+    gap: 0.34em;
+    font-family: var(--font-logo);
+    font-size: var(--fs-logo);
     line-height: 1;
+    text-transform: uppercase;
     white-space: nowrap;
     color: var(--color-primary);
   }
-  .logo__mark { font-weight: 700; letter-spacing: -0.02em; }
-  .logo__sub { font-weight: 400; color: var(--color-text); }
-  .logo--small { font-size: 16px; }
+  .logo__mark { font-weight: 900; letter-spacing: 0.02em; }
+  .logo__sub { font-weight: 200; letter-spacing: 0.1em; margin-right: -0.1em; }
+  .logo--small { font-size: var(--fs-logo-small); }
   .logo--light, .logo--light .logo__sub { color: var(--color-primary-contrast); }
   .logo--light .logo__mark { color: var(--color-gold); }
 
@@ -241,7 +245,7 @@
     background: none;
     border: 0;
     text-align: left;
-    font-size: 16px;
+    font-size: var(--fs-body);
     font-weight: 600;
     color: var(--color-text);
     transition: color var(--dur-fast) var(--ease);

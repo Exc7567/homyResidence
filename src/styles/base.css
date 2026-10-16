@@ -44,7 +44,7 @@
     display: inline-block;
     font-size: var(--fs-xs);
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--ls-label);
     text-transform: uppercase;
     color: var(--color-text-muted);
   }
@@ -69,7 +69,7 @@
     padding: 0 var(--space-5);
     border-radius: var(--radius-md);
     border: 1px solid transparent;
-    font-size: 16px;
+    font-size: var(--fs-btn);
     font-weight: 600;
     line-height: 1.2;
     text-align: center;
@@ -86,7 +86,7 @@
   .btn svg { width: 20px; height: 20px; flex-shrink: 0; }
   .btn:active { transform: scale(0.97); }
   .btn-block { width: 100%; }
-  .btn-sm { min-height: 40px; padding: 0 var(--space-4); font-size: 15px; }
+  .btn-sm { min-height: 40px; padding: 0 var(--space-4); font-size: var(--fs-btn-sm); }
 
   .btn-primary { background: var(--color-primary); color: var(--color-primary-contrast); }
   .btn-primary:hover { background: var(--color-primary-hover); }
@@ -157,7 +157,7 @@
     border-radius: var(--radius-pill);
     background: var(--color-teal-soft);
     color: var(--color-teal);
-    font-size: 13px;
+    font-size: var(--fs-chip);
     font-weight: 600;
     line-height: 1.3;
   }
@@ -196,6 +196,8 @@
     font-variant-numeric: tabular-nums;
   }
   .price-suffix { font-size: var(--fs-small); color: var(--color-text-muted); font-weight: 400; }
+  /* "Rp" before an amount (<Rupiah />): slightly smaller so a leading "1" never reads as "l". */
+  .rp-cur { font-size: 0.72em; font-weight: 600; margin-right: 0.12em; }
 
   /* ---------- Placeholders (dev outline) ---------- */
   .ph-dev {

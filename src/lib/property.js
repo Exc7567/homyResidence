@@ -1,4 +1,12 @@
 // Derived values (file 03 section 9). Compute, never hard-code.
+import { KOST_TYPES } from '../data/properties.js';
+
+// Homepage card badge: "Kost Putri" / "Kost Campur"; otherwise the kind (e.g. "Villa").
+export const badgeLabel = (p) => KOST_TYPES[p.kostType]?.label ?? p.kind;
+
+// Tata Tertib → Penghuni → "Siapa yang bisa tinggal".
+export const occupantsText = (p) =>
+  KOST_TYPES[p.kostType]?.occupants ?? '[ISI: penghuni putra / putri / campur (set kostType di properties.js)]';
 
 export const priceFrom = (p) => Math.min(...p.roomTypes.map((r) => r.price));
 
