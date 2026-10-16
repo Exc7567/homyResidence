@@ -25,12 +25,10 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # BEFORE the custom domain exists, use the project URL:
-          #   VITE_BASE: /REPO_NAME/
-          #   SITE_URL: https://USERNAME.github.io/REPO_NAME
-          # AFTER the custom domain is connected, use:
-          VITE_BASE: /
-          SITE_URL: https://homyresidence.id
+          # Project URL (current). When the custom domain homyresidence.id is
+          # connected, switch to VITE_BASE: / and SITE_URL: https://homyresidence.id
+          VITE_BASE: /homyResidence/
+          SITE_URL: https://exc7567.github.io/homyResidence
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
