@@ -173,6 +173,18 @@
   .hero__btn-icon svg { width: 20px; height: 20px; }
   .hero__btn:hover .hero__btn-icon { transform: translateY(3px); }
 
+  /* Below 1024 the hero closes the page (HomePage puts the properties first): it no longer slides
+     under the header, and the button's arrow points up to the properties. */
+  @media (max-width: 1023.98px) {
+    .hero {
+      margin-top: 0;
+      padding-top: clamp(24px, 5.5vh, 64px);
+    }
+    .hero__glow { top: -4%; }
+    .hero__btn-icon svg { transform: rotate(180deg); }
+    .hero__btn:hover .hero__btn-icon { transform: translateY(-3px); }
+  }
+
   /* Curved photo row. Each card is turned around its vertical axis by --k (its position from the
      middle, -2 … 2) under one shared perspective, and lifted by --k2 (k²): the middle photo sits
      lowest, the outer ones higher with their outer edge towards the viewer, like the inside of a
