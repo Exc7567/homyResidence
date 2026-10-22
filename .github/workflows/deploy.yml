@@ -25,10 +25,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # Project URL (current). When the custom domain homyresidence.id is
-          # connected, switch to VITE_BASE: / and SITE_URL: https://homyresidence.id
-          VITE_BASE: /homyResidence/
-          SITE_URL: https://exc7567.github.io/homyResidence
+          # Custom domain (public/CNAME). Used for canonical/og URLs, sitemap and robots.
+          SITE_URL: https://www.homyresidence.id
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

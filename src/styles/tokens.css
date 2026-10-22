@@ -9,7 +9,7 @@
   /* Surfaces */
   --color-bg: #FFFFFF;
   --color-sand: #E7E1D1;          /* VERIFIED: Rukita theme-color meta. Use for borders on warm panels, hero bg tint */
-  --color-sand-soft: #F6F3EA;     /* estimated: info panels (address card, room totals, Tentang Hunian) */
+  --color-sand-soft: #F6F3EA;     /* estimated: info panels (address card, room totals) */
   --color-surface-muted: #F4F4F2; /* estimated: skeletons, placeholder image bg */
   --color-card-disabled: #F3F3F3; /* under-construction card bg */
 
@@ -45,7 +45,7 @@
   --color-white-80: rgba(255, 255, 255, 0.8);
   --color-white-60: rgba(255, 255, 255, 0.6);
   --color-white-15: rgba(255, 255, 255, 0.15);
-  --color-placeholder-flag: #F59E0B; /* dev-only amber outline for placeholders */
+  --color-placeholder-flag: #F59E0B; /* amber outline: placeholders (dev only) and stand-in room photos */
   --color-placeholder-chip: #FEF3C7; /* placeholder chip bg (dev) */
   --color-placeholder-chip-text: #7A4A00;
 

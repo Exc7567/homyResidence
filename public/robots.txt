@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://homyresidence.id/sitemap.xml
+Sitemap: https://www.homyresidence.id/sitemap.xml

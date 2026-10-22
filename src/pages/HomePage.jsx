@@ -19,7 +19,7 @@ export default function HomePage() {
     document.title = `${BRAND.name} | Kost & Villa`;
   }, []);
 
-  const hero = <Hero key="hero" />;
+  const hero = <Hero key="hero" eager={!isMobile} />;
   const sections = [
     <PropertyGrid key="properti" />,
     <SharedFacilitiesStrip key="fasilitas" />,

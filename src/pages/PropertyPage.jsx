@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { BRAND } from '../data/brand';
 import { getProperty } from '../data/properties';
-import { getHouseInfo } from '../data/houseRules';
 import { useMediaQuery } from '../lib/hooks';
 import { useOverlayState } from '../lib/useOverlayState';
 import SiteHeader from '../components/layout/SiteHeader';
@@ -47,7 +46,6 @@ export default function PropertyPage({ slug }) {
   }, []);
 
   if (!property || property.status !== 'open') return <NotFoundPage />;
-  const info = getHouseInfo(slug);
   const lightbox = photo ? photoSet(property, photo.set) : null;
 
   return (
@@ -72,7 +70,7 @@ export default function PropertyPage({ slug }) {
             <FacilitiesSection property={property} />
             <RoomsSection property={property} onOpenPhotos={(set, index) => openPhoto({ set, index })} />
             <LocationSection property={property} />
-            <TataTertibSection property={property} info={info} />
+            <TataTertibSection property={property} />
             <FaqSection property={property} />
           </div>
           {isDesktop && (

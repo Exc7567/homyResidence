@@ -1,13 +1,15 @@
 import { ArrowDown } from 'lucide-react';
 import { BRAND } from '../../data/brand';
+import { heroPhotos } from '../../lib/heroPhotos';
 import ImageWithFallback from '../common/ImageWithFallback';
 import Text from '../common/Text';
 
 // Homepage hero, after the owner's reference: soft brand-colored glow, big centered
 // two-line "HOMY RESIDENCE" in Nura, the tagline, a dark pill button, and a row of five
-// tall photos on a gentle curve. No WhatsApp button here: the header (desktop) and the
-// floating button (mobile) already offer it.
-export default function Hero() {
+// tall photos on a gentle curve (random from src/data/heroImages.js on every page load).
+// No WhatsApp button here: the header (desktop) and the floating button (mobile) already offer it.
+// `eager`: the hero is above the fold (desktop), so its photos load right away.
+export default function Hero({ eager = false }) {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero__glow" aria-hidden="true">
@@ -30,14 +32,14 @@ export default function Hero() {
         </a>
       </div>
 
-      <HeroPhotoArc photos={BRAND.heroPhotos} />
+      <HeroPhotoArc photos={heroPhotos()} eager={eager} />
     </section>
   );
 }
 
-// Five photos (BRAND.heroPhotos, left to right) on a curve: the middle one sits lowest, the outer
+// Five photos (left to right) on a curve: the middle one sits lowest, the outer
 // ones higher and turned towards the viewer, cut off by the screen edges. Decorative only.
-function HeroPhotoArc({ photos = [] }) {
+function HeroPhotoArc({ photos = [], eager }) {
   const mid = (photos.length - 1) / 2;
   return (
     <div className="hero-arc" aria-hidden="true">
@@ -47,7 +49,7 @@ function HeroPhotoArc({ photos = [] }) {
           return (
             <li key={i} className="hero-arc__card" style={{ '--k': k, '--k2': k * k }}>
               <div className="hero-arc__frame animate-fade-up" style={{ animationDelay: `${320 + Math.abs(k) * 90}ms` }}>
-                <ImageWithFallback image={img} className="hero-arc__img" sizes="(min-width: 1024px) 300px, 25vw" />
+                <ImageWithFallback image={img} priority={eager} className="hero-arc__img" sizes="(min-width: 1024px) 300px, 25vw" />
               </div>
             </li>
           );

@@ -47,55 +47,56 @@ All content is in `src/data/`. You never need to touch components.
 | Extra line under a facility (e.g. H14 parking) | `src/data/properties.js` | `facilityNotes: { parking_basement: '...' }` |
 | Short location (cards) | `src/data/properties.js` | `locationLabel` (max ~40 characters) |
 | Full address (panel under the map) | `src/data/properties.js` | `address` |
-| Kost Putri / Kost Campur | `src/data/properties.js` | `kostType: 'putri'` or `'campur'` (one field per property). It drives the badge on the homepage card, Tata Tertib → Penghuni and the link-preview text. The wording itself is in `KOST_TYPES` at the top of the same file |
-| "Tentang Hunian" text (inside Tata Tertib) | `src/data/properties.js` | `description` (2-3 sentences, see below) |
-| Deposit | `src/data/properties.js` | `deposit` |
+| Kost Putri / Kost Campur | `src/data/properties.js` | `kostType: 'putri'` or `'campur'` (one field per property). It drives the badge on the homepage card and the link-preview text. The wording itself is in `KOST_TYPES` at the top of the same file |
+| Deposit amount (kept in the data; not shown on the site since Update 04) | `src/data/properties.js` | `deposit` |
 | Map pin | `src/data/properties.js` | `pin: { lat: '...', lng: '...' }` (map, "Buka di Maps" and every POI route follow it) |
 | Point of Interest | `src/data/pois.js` | `POI_CATALOG` (name, category, coordinates) and `POI_MINUTES_BY_SLUG` (minutes by motorcycle per property) |
 | POI photos | `poi-assets/` + `scripts/poi-photo-config.mjs` | see section 3 |
-| House rules / policies | `src/data/houseRules.js` | `DEFAULT_HOUSE_INFO` (all properties) or `HOUSE_INFO_BY_SLUG.a7 = { smoking: '...' }` (one property) |
+| Tata Tertib Peraturan Kost | `src/data/houseRules.js` | `HOUSE_RULES` (one list for every property; numbers are automatic). `onlyFor: ['h14']` shows a rule only for those properties (e.g. the parking rule) |
 | FAQ (same for every property) | `src/data/faq.js` | `FAQ` |
 | WhatsApp number | `src/data/brand.js` | `whatsappNumber` (digits only, e.g. `6281311654066`) |
 | WhatsApp prefilled messages | `src/lib/whatsapp.js` | `TEMPLATES` (keep `{property}`, `{room}`, `{price}`) |
 | Hero subtitle (under "HOMY RESIDENCE") | `src/data/brand.js` | `tagline` |
-| Hero photos (the curved row of five) | `src/data/brand.js` | `heroPhotos` (see section 3) |
+| Hero photos (the curved row of five, random on every load) | `src/data/heroImages.js` | `HERO_IMAGES` (see section 3) |
 | Colors, fonts, sizes, radius | `src/styles/tokens.css` | CSS variables (values are estimates — correct freely). Font files: see section 3b |
 | Logo | `public/images/brand/logo.svg` + `src/data/brand.js` | set `logo: '/images/brand/logo.svg'` (replaces the Nura text logo everywhere) |
 
-Rule of the site: every fact has one home. AC, WiFi and electricity appear once on the homepage (the "Fasilitas di Semua Hunian" strip) and once per detail page (Fasilitas). The deposit appears only in Tata Tertib. Parking never appears on the homepage. Room letters and counts are shown on the room cards.
+Rule of the site: every fact has one home. AC, WiFi and electricity appear once on the homepage (the "Fasilitas di Semua Hunian" strip) and once per detail page (Fasilitas). Parking never appears on the homepage. Room letters and counts are shown on the room cards.
 
 There is no footer. WhatsApp is reached through the "Book Now" buttons (header on desktop, floating button on phones and tablets, bottom bar on property pages). The header menu item **Kontak** goes to the "Bingung pilih kamar?" band on the homepage (`/#kontak`), from every page.
-
-### "Tentang Hunian" writing guide
-
-2-3 sentences about the property's character: the atmosphere and who it suits. Do **not** mention prices, room types, facilities, deposit, electricity or nearby places; those already have their own sections.
 
 ---
 
 ## 3. Add photos
 
-Put files here (JPG or WebP, compressed to ≤ 250 KB):
+Property and hero photos live in `public/property-pictures/`, with their original file names (already web-sized, used as they are):
 
 ```
+public/property-pictures/
+├── A7/            a7-1.jpg … a7-7.jpg
+├── ALAMANDA/      alamanda1.jpg … alamanda4.jpg
+├── H14/           fasad/ dapur/ standard/ deluxe/ superior/ + hall.jpg, basement-parking.jpg
+├── PARAHYANGAN/   (empty: Parahyangan still shows placeholders)
+└── HERO-random/   homepage hero photos
 public/images/
-├── brand/  logo.svg · hero-1.jpg … hero-5.jpg (portrait, about 600×860) · og-default.jpg (1200×630)
-├── a7/
-│   ├── og.jpg                       (1200×630, link preview for /a7 — picked up automatically)
-│   ├── gallery/01.jpg … 06.jpg
-│   ├── rooms/standard/01.jpg …      (and superior/, deluxe/, executive/)
-├── h14/  parahyangan/  alamanda/  villa-purnava/   (same idea)
+├── brand/  logo.svg · og-default.jpg (1200×630)
+└── a7/og.jpg …    (1200×630, link preview for /a7 — picked up automatically; same for h14/, parahyangan/, alamanda/)
 ```
 
-Then point the data at them (paths start with `/`). In `src/data/properties.js`, replace a generated placeholder list, e.g.:
+GitHub Pages is **case-sensitive**: `a7-1.JPG` and `a7-1.jpg` are different files online, even if both work on your computer. Write every name exactly like the file.
+
+Then list the files in `src/data/properties.js` with the `photos(folder, label, files)` helper, in the order they should appear (the first one is the first slide):
 
 ```js
-gallery: [
-  { src: '/images/a7/gallery/01.jpg', alt: 'Tampak depan Homy Permata A7' },
-  { src: '/images/a7/gallery/02.jpg', alt: 'Lorong lantai 1' },
-],
+gallery: photos('A7', 'Homy Permata A7', ['a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg']),
+cardCover: 'a7-2.jpg', // optional: homepage card only, this gallery photo comes first
 ```
 
-Room photos go in `roomTypes[].photos` the same way. The five homepage hero photos (the curved row, left to right) go in `BRAND.heroPhotos` in `src/data/brand.js`: replace `src: null` with the path, e.g. `{ src: '/images/brand/hero-1.jpg', alt: 'Kamar Homy Permata A7' }`. They are cropped to a tall 5:7 frame, so keep the subject near the middle. The current `public/images/brand/og-default.jpg` is a generated placeholder — replace it with a real 1200×630 image.
+The homepage card opens on the first gallery photo, or on `cardCover` when it is set (H14 and Alamanda use it). The property page and the "Hunian Homy Lainnya" cards always start with the first gallery photo.
+
+Room photos go in `roomTypes[].photos` the same way. A7's room cards currently show stand-in photos marked `tempPhotos: true` (amber outline + "Foto sementara" line on the card): put the right photos for that room type and delete `tempPhotos: true`.
+
+**Homepage hero:** every page load shows 5 random photos from `HERO_IMAGES` in `src/data/heroImages.js` on the curved row. To add one, copy it into `public/property-pictures/HERO-random/` and add its exact file name to that list (GitHub Pages cannot read the folder by itself). The cards are tall, so keep the subject near the middle. The current `public/images/brand/og-default.jpg` is a generated placeholder — replace it with a real 1200×630 image.
 
 ### POI photos
 
@@ -129,25 +130,14 @@ One-time setup:
 2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. Every push to `main` now builds and deploys automatically (`.github/workflows/deploy.yml`).
 
-**Before you own the domain**, the site lives at `https://USERNAME.github.io/REPO_NAME/`. Edit `.github/workflows/deploy.yml`:
+**Custom domain (live since Update 04):** the main address is `https://www.homyresidence.id`; GitHub redirects `homyresidence.id` to it.
 
-```yaml
-VITE_BASE: /REPO_NAME/
-SITE_URL: https://USERNAME.github.io/REPO_NAME
-```
+- `public/CNAME` contains exactly `www.homyresidence.id` (copied into `dist/` by the build).
+- The site is served from the root `/`: `base: '/'` in `vite.config.js`, and `SITE_URL: https://www.homyresidence.id` in `.github/workflows/deploy.yml` (canonical/link-preview URLs, sitemap, robots).
+- DNS (already done): a `CNAME` record for `www` → the GitHub account's Pages host (`<github-username>.github.io`), and four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+- Because the site deploys with GitHub Actions, GitHub reads the domain from **Settings → Pages → Custom domain** (it must say `www.homyresidence.id`), not from the `CNAME` file. Tick **Enforce HTTPS** there once it is available.
 
-**After buying `homyresidence.id`:**
-
-1. Create `public/CNAME` containing exactly `homyresidence.id` (or set it in Settings → Pages → Custom domain).
-2. At your domain registrar, add DNS records:
-   - four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - a `CNAME` record for `www` → `USERNAME.github.io`
-   - Double-check these values in GitHub's current docs ("Managing a custom domain for your GitHub Pages site") — they can change.
-3. Set the workflow back to `VITE_BASE: /` and `SITE_URL: https://homyresidence.id`.
-4. Enable **Enforce HTTPS** in Settings → Pages when it becomes available (up to ~24 h after DNS).
-5. `.id` domains often need registrar/PANDI verification; allow extra time.
-
-Direct links such as `homyresidence.id/alamanda` work on refresh because the build writes `dist/alamanda/index.html` for every open property (with its own link-preview title, description and image). Unknown paths show the in-app 404 page.
+Direct links such as `www.homyresidence.id/alamanda` work on refresh because the build writes `dist/alamanda/index.html` for every open property (with its own link-preview title, description and image). Unknown paths show the in-app 404 page.
 
 Other hosts (only if you move): Netlify → `public/_redirects` with `/*  /index.html  200`; Vercel → `vercel.json` with `{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }`.
 
@@ -158,8 +148,8 @@ Other hosts (only if you move): Netlify → `public/_redirects` with `/*  /index
 Routes, homepage card, link-preview page and sitemap all follow `status`, so opening the villa is a data change in `src/data/properties.js`, on the `villa-purnava` entry:
 
 1. Change `status: 'under_construction'` → `status: 'open'`.
-2. Fill in the same fields the other properties have: `address`, `description`, `totalRooms`, `deposit`, `gallery`, `facilityIds`, `uniqueFacilityIds`, `cardHighlights`, `roomTypes` (at least one), `pin`; add its POIs in `src/data/pois.js`.
-3. Add `'villa-purnava': {}` to `HOUSE_INFO_BY_SLUG` in `src/data/houseRules.js` if it needs its own rules.
+2. Fill in the same fields the other properties have: `address`, `totalRooms`, `deposit`, `gallery`, `facilityIds`, `uniqueFacilityIds`, `cardHighlights`, `roomTypes` (at least one), `pin`; add its POIs in `src/data/pois.js`.
+3. The Tata Tertib rules in `src/data/houseRules.js` apply automatically (rules with `onlyFor` only where listed).
 
 Then `npm run build` — `/villa-purnava` gets its own page and is added to the sitemap automatically.
 

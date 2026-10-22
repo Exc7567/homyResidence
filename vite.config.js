@@ -4,8 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // GitHub Pages project URL: https://exc7567.github.io/homyResidence/
-  // When you connect the custom domain (homyresidence.id) later,
-  // build with VITE_BASE=/ or change the fallback below to '/'.
-  base: process.env.VITE_BASE || '/homyResidence/',
+  // Custom domain https://www.homyresidence.id (public/CNAME) serves the site from the root.
+  base: '/',
 });

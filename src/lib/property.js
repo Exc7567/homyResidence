@@ -4,15 +4,17 @@ import { KOST_TYPES } from '../data/properties.js';
 // Homepage card badge: "Kost Putri" / "Kost Campur"; otherwise the kind (e.g. "Villa").
 export const badgeLabel = (p) => KOST_TYPES[p.kostType]?.label ?? p.kind;
 
-// Tata Tertib → Penghuni → "Siapa yang bisa tinggal".
-export const occupantsText = (p) =>
-  KOST_TYPES[p.kostType]?.occupants ?? '[ISI: penghuni putra / putri / campur (set kostType di properties.js)]';
-
 export const priceFrom = (p) => Math.min(...p.roomTypes.map((r) => r.price));
 
 export const sortedRoomTypes = (p) => [...p.roomTypes].sort((a, b) => a.price - b.price);
 
 export const cardHighlights = (p) => (p.cardHighlights || []).slice(0, 2);
+
+// Homepage card photos: the gallery, starting with `cardCover` (a gallery file, e.g. 'alamanda4.jpg') when set.
+export const cardPhotos = (p) => {
+  const i = p.cardCover ? p.gallery.findIndex((g) => g.src?.endsWith('/' + encodeURI(p.cardCover))) : -1;
+  return i > 0 ? [p.gallery[i], ...p.gallery.filter((_, j) => j !== i)] : p.gallery;
+};
 
 // "Kamar A, B, C" / "Kamar B – Q" / "Semua kamar".
 export const roomsLabel = (room) => (room.rooms ? `Kamar ${room.rooms}` : 'Semua kamar');

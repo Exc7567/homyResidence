@@ -11,6 +11,7 @@ export const POI_PHOTO_IDS = [
   'chicco-swalayan',
   'ubaya-medical-center',
   'rs-ubaya',
+  'pramita',
   'uph-college',
   'uph',
   'supermal-karawaci',

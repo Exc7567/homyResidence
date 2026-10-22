@@ -7,9 +7,9 @@ export const FAQ = [
   { q: 'Apakah bisa melihat kamar dulu sebelum menyewa?',
     a: 'Bisa. Gunakan tombol "Jadwalkan Visit" di bagian Lokasi untuk mengatur jadwal kunjungan lewat WhatsApp.' },
   { q: 'Bagaimana cara pembayaran sewa?',
-    a: '[ISI: metode dan jadwal pembayaran, contoh: transfer bank, dibayar di awal bulan]' },
+    a: 'Transfer bank, dibayar di awal bulan.' },
   { q: 'Apakah masa sewa bisa diperpanjang atau pindah kamar?',
     a: '[ISI: aturan perpanjangan sewa dan pindah kamar]' },
   { q: 'Jam berapa tim bisa dihubungi?',
-    a: '[ISI: jam operasional balasan WhatsApp, contoh: setiap hari 08.00-21.00]' },
+    a: 'Setiap hari 08.00–21.00.' },
 ];

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { badgeLabel, cardHighlights, nearestCampus, priceFrom } from '../../lib/property';
+import { badgeLabel, cardHighlights, cardPhotos, nearestCampus, priceFrom } from '../../lib/property';
 import { formatMinutes } from '../../lib/format';
 import HighlightChip from '../common/HighlightChip';
 import ImageCarousel from '../common/ImageCarousel';
@@ -20,7 +20,7 @@ export default function PropertyCard({ property: p, priority = false }) {
     <article className="property-card group" aria-labelledby={`card-${p.slug}`}>
       <div className="property-card__media">
         <ImageCarousel
-          images={p.gallery}
+          images={cardPhotos(p)}
           aspect="4/3"
           name={p.name}
           priority={priority}
