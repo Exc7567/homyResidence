@@ -8,13 +8,15 @@ const mapFor = (pin) => ({
   openUrl: pinUrl(pin),
 });
 
-const placeholderPhotos = (label, n = 4) =>
-  Array.from({ length: n }, (_, i) => ({ src: null, alt: `Foto ${label} ${i + 1} (placeholder)`, label: `${label} ${i + 1}` }));
+// `placeholder: 'room'`: an empty (or failed) room/property photo slot shows the room illustration
+// with "Foto segera hadir" (ImageWithFallback). POI photos do not have it and keep the plain placeholder.
+// No photo yet: one empty slot (no arrows, dots or counter).
+const noPhoto = (label) => [{ src: null, alt: 'Foto belum tersedia', label, placeholder: 'room' }];
 
 // Real photos: public/property-pictures/<folder>/<file>, original file names, in the order given.
 // GitHub Pages is case-sensitive: folder, file name and extension must match the file exactly.
 const photos = (folder, label, files) =>
-  files.map((file, i) => ({ src: encodeURI(`/property-pictures/${folder}/${file}`), alt: `${label} — foto ${i + 1}`, label }));
+  files.map((file, i) => ({ src: encodeURI(`/property-pictures/${folder}/${file}`), alt: `${label} — foto ${i + 1}`, label, placeholder: 'room' }));
 
 // Homy Residence H14 photos are sorted into subfolders. Room folders (owner-confirmed, Update 04):
 // standard/ = Standard, superior/ = Executive (room A), deluxe/ = Superior (room R, the remaining type).
@@ -34,9 +36,27 @@ const H14_GALLERY = [
   'superior/IMG-20261019-WA0202.jpg', 'superior/IMG-20261019-WA0210.jpg', 'superior/IMG-20261019-WA0213.jpg',
 ];
 
-// A7 has no photos per room type yet: every A7 room card shows these room photos with
-// `tempPhotos: true` (outline + reminder on the card). Replace per type, then remove the flag.
-const A7_ROOM_PHOTOS = ['a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg'];
+// A7 room folders (Update 05, matched by folder name): standard/, superior/, deluxe/, numeric order.
+// There is no Executive folder: Executive keeps a7-1 to a7-3 (owner: these are its correct photos).
+const A7_ROOM_PHOTOS = {
+  standard: ['standard/1.jpg', 'standard/2.jpg', 'standard/3.jpg'],
+  superior: ['superior/1.jpg', 'superior/2.jpg', 'superior/3.jpg', 'superior/4.jpg'],
+  deluxe: ['deluxe/1.jpg', 'deluxe/2.jpg', 'deluxe/3.jpg'],
+  executive: ['a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg'],
+};
+// Gallery = every A7 photo, natural path order (the first one is the homepage and mini card photo).
+const A7_GALLERY = [
+  'a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg', 'a7-4.jpg', 'a7-5.jpg', 'a7-6.jpg', 'a7-7.jpg',
+  ...A7_ROOM_PHOTOS.deluxe, ...A7_ROOM_PHOTOS.standard, ...A7_ROOM_PHOTOS.superior,
+];
+
+// Homy Parahyangan room folders (Update 05, matched by folder name): standard/, superior/; small/ is empty.
+// No photos directly in the property folder, so the gallery = the room photos, natural path order.
+const PARAHYANGAN_ROOM_PHOTOS = {
+  standard: ['standard/1.jpg', 'standard/2.jpg', 'standard/3.jpg', 'standard/4.jpg'],
+  superior: ['superior/1.jpg', 'superior/2.jpg', 'superior/3.jpg'],
+};
+const PARAHYANGAN_GALLERY = [...PARAHYANGAN_ROOM_PHOTOS.standard, ...PARAHYANGAN_ROOM_PHOTOS.superior];
 
 // Room types:
 //   rooms     = room letters/names as shown on the card ("Kamar ..."); null → "Semua kamar"
@@ -68,23 +88,23 @@ export const PROPERTIES = [
     pin: { lat: '-6.228501', lng: '106.586875' },
     totalRooms: 18,
     deposit: 500000,
-    gallery: photos('A7', 'Homy Permata A7', ['a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg', 'a7-4.jpg', 'a7-5.jpg', 'a7-6.jpg', 'a7-7.jpg']),
+    gallery: photos('A7', 'Homy Permata A7', A7_GALLERY),
     facilityIds: ['ac', 'wifi', 'furnished', 'bathroom_in', 'water_heater', 'laundry_free', 'parking_front', 'electricity_token'],
     uniqueFacilityIds: [], // "Unggulan" marker on the detail page
     cardHighlights: ['4 tipe kamar, termasuk Deluxe', 'Kamar mandi dalam + water heater di semua kamar'], // max 2, never the price
     roomTypes: [
       { id: 'standard',  name: 'Standard',  price: 1700000, units: 9, rooms: 'A, B, C, D, H, I, J, K, Q', facilityIds: [],
         size: '[ISI: luas kamar, contoh "3 x 4 m"]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
-        photos: photos('A7', 'Homy Permata A7 Tipe Standard', A7_ROOM_PHOTOS), tempPhotos: true },
+        photos: photos('A7', 'Homy Permata A7 — Standard', A7_ROOM_PHOTOS.standard) },
       { id: 'superior',  name: 'Superior',  price: 1900000, units: 4, rooms: 'E, F, M, P', facilityIds: [],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
-        photos: photos('A7', 'Homy Permata A7 Tipe Superior', A7_ROOM_PHOTOS), tempPhotos: true },
+        photos: photos('A7', 'Homy Permata A7 — Superior', A7_ROOM_PHOTOS.superior) },
       { id: 'deluxe',    name: 'Deluxe',    price: 2000000, units: 2, rooms: 'L, Fanta', facilityIds: [],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
-        photos: photos('A7', 'Homy Permata A7 Tipe Deluxe', A7_ROOM_PHOTOS), tempPhotos: true },
+        photos: photos('A7', 'Homy Permata A7 — Deluxe', A7_ROOM_PHOTOS.deluxe) },
       { id: 'executive', name: 'Executive', price: 2500000, units: 3, rooms: 'G, N, O', facilityIds: [],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
-        photos: photos('A7', 'Homy Permata A7 Tipe Executive', A7_ROOM_PHOTOS), tempPhotos: true },
+        photos: photos('A7', 'Homy Permata A7 — Executive', A7_ROOM_PHOTOS.executive) },
     ],
   },
 
@@ -140,7 +160,7 @@ export const PROPERTIES = [
     pin: { lat: '-6.226586', lng: '106.583741' },
     totalRooms: 14,
     deposit: 500000,
-    gallery: placeholderPhotos('Homy Parahyangan', 6),
+    gallery: photos('PARAHYANGAN', 'Homy Parahyangan', PARAHYANGAN_GALLERY),
     // Bathroom differs per room type → shown on the room cards only, not here.
     facilityIds: ['ac', 'wifi', 'furnished', 'water_heater', 'laundry_free', 'parking_front', 'electricity_token'],
     uniqueFacilityIds: [],
@@ -148,11 +168,13 @@ export const PROPERTIES = [
     roomTypes: [
       // Small: same facilities as the other types; the only difference is the bathroom outside.
       { id: 'small',    name: 'Small',    price: 1200000, units: 1, rooms: 'L', facilityIds: ['bathroom_out'],
-        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]', photos: placeholderPhotos('Tipe Small Parahyangan', 4) },
+        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]', photos: noPhoto('Homy Parahyangan — Small') },
       { id: 'standard', name: 'Standard', price: 1450000, units: 9, rooms: 'E – K, M, N', facilityIds: ['bathroom_out'],
-        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]', photos: placeholderPhotos('Tipe Standard Parahyangan', 4) },
+        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
+        photos: photos('PARAHYANGAN', 'Homy Parahyangan — Standard', PARAHYANGAN_ROOM_PHOTOS.standard) },
       { id: 'superior', name: 'Superior', price: 1650000, units: 4, rooms: 'A – D', facilityIds: ['bathroom_in'],
-        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]', photos: placeholderPhotos('Tipe Superior Parahyangan', 4) },
+        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
+        photos: photos('PARAHYANGAN', 'Homy Parahyangan — Superior', PARAHYANGAN_ROOM_PHOTOS.superior) },
     ],
   },
 
@@ -194,7 +216,7 @@ export const PROPERTIES = [
     name: 'Villa Purnava Permata',
     shortName: 'Villa Purnava',
     locationLabel: '[ISI: lokasi singkat Villa Purnava Permata]',
-    gallery: placeholderPhotos('Villa Purnava Permata', 1),
+    gallery: noPhoto('Villa Purnava Permata'),
     roomTypes: [],
     facilityIds: [],
     cardHighlights: [],

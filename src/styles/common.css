@@ -66,6 +66,21 @@
   .img-ph--dev { outline: 2px dashed var(--color-placeholder-flag); outline-offset: -4px; }
   .img-ph__icon { width: 32px; height: 32px; opacity: 0.7; }
   .img-ph__label { font-size: var(--fs-xs); font-weight: 500; max-width: 90%; }
+  /* Room/property slot without a photo: calm room illustration (RoomIllustration.jsx), no shimmer. */
+  .img-ph--room { background: var(--color-sand-soft); }
+  .img-ph--room::before { content: none; }
+  .img-ph__room { width: min(58%, 240px); height: auto; }
+  .room-illus__line {
+    fill: none;
+    stroke: color-mix(in srgb, var(--color-teal) 55%, var(--color-bg));
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .room-illus__soft { fill: var(--color-teal-soft); }
+  .room-illus__sand { fill: var(--color-sand); }
+  .room-illus__bg { fill: var(--color-bg); }
+  .room-illus__dot { fill: color-mix(in srgb, var(--color-teal) 55%, var(--color-bg)); }
 
   /* ---------- Carousel ---------- */
   .carousel { position: relative; overflow: hidden; outline-offset: -2px; }

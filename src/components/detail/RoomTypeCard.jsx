@@ -1,5 +1,6 @@
 import { DoorClosed, Ruler, Users } from 'lucide-react';
 import { FACILITIES } from '../../data/facilities';
+import { hasPlaceholder } from '../../lib/placeholders';
 import { roomsLabel } from '../../lib/property';
 import Icon from '../common/Icon';
 import ImageCarousel from '../common/ImageCarousel';
@@ -15,20 +16,23 @@ function RoomStatus({ room }) {
 
 // One room type: name, how many rooms and which ones, room-specific facts, price, Book Now.
 // Facilities shared by all types are NOT repeated here (they live in the Fasilitas section).
-// `room.tempPhotos`: the photos are stand-ins (not this type yet) → amber outline + reminder line.
+// No real photo yet (one empty slot with the room illustration) → nothing to open in the photo viewer.
+// Size / occupancy are shown only once filled in: an "[ISI: ...]" placeholder is not shown on the card.
+const filled = (v) => (v && !hasPlaceholder(v) ? v : null);
+
 export default function RoomTypeCard({ room, property, onOpenPhoto }) {
+  const hasPhotos = room.photos.some((ph) => ph.src);
+  const size = filled(room.size);
+  const occupancy = filled(room.occupancyNote);
   return (
     <article className="room-card" aria-labelledby={`room-${room.id}`}>
-      <div className={`room-card__media ${room.tempPhotos ? 'room-card__media--temp' : ''}`}>
+      <div className="room-card__media">
         <ImageCarousel
           images={room.photos}
           aspect="4/3"
           name={`Tipe ${room.name}`}
-          onImageClick={onOpenPhoto}
+          onImageClick={hasPhotos ? onOpenPhoto : undefined}
         />
-        {room.tempPhotos && (
-          <p className="room-card__temp-note">Foto sementara: ganti dengan foto tipe {room.name} yang benar</p>
-        )}
       </div>
       <div className="room-card__body">
         <div className="room-card__title-row">
@@ -40,10 +44,12 @@ export default function RoomTypeCard({ room, property, onOpenPhoto }) {
           <DoorClosed size={16} aria-hidden="true" />
           <span>{roomsLabel(room)}</span>
         </p>
-        <div className="room-meta">
-          <span><Ruler size={16} aria-hidden="true" /><Text value={room.size} /></span>
-          <span><Users size={16} aria-hidden="true" /><Text value={room.occupancyNote} /></span>
-        </div>
+        {(size || occupancy) && (
+          <div className="room-meta">
+            {size && <span><Ruler size={16} aria-hidden="true" /><Text value={size} /></span>}
+            {occupancy && <span><Users size={16} aria-hidden="true" /><Text value={occupancy} /></span>}
+          </div>
+        )}
         {room.facilityIds?.length > 0 && (
           <ul className="room-features" aria-label="Fasilitas khusus tipe ini">
             {room.facilityIds.map((id) => FACILITIES[id] && (

@@ -509,25 +509,6 @@
     border-top: 1px solid var(--color-border);
   }
   .room-card__price { margin: 0; }
-  /* Stand-in room photos (data: tempPhotos): owner reminder to replace them. */
-  .room-card__media--temp { position: relative; }
-  .room-card__media--temp::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    outline: 2px dashed var(--color-placeholder-flag);
-    outline-offset: -4px;
-    pointer-events: none;
-    z-index: 3;
-  }
-  .room-card__temp-note {
-    margin: 0;
-    padding: 6px 10px;
-    background: var(--color-placeholder-chip);
-    color: var(--color-placeholder-chip-text);
-    font-size: var(--fs-xs);
-    line-height: 1.35;
-  }
   @media (max-width: 379px) { .room-card__cta { width: 100%; } }
   @media (min-width: 640px) {
     .room-card { flex-direction: row; }
@@ -549,7 +530,20 @@
     font-size: var(--fs-small);
   }
 
-  /* Tata Tertib Peraturan Kost: numbered rules (the <ol> generates the numbers) */
+  /* Tata Tertib Peraturan Kost: deposit line (not a rule), then the numbered rules (the <ol> generates the numbers) */
+  .rules-deposit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-5);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--color-sand-soft);
+    border: 1px solid var(--color-border);
+    font-weight: 600;
+  }
+  .rules-deposit svg { flex-shrink: 0; color: var(--color-teal); }
+  .rules-deposit__amount { white-space: nowrap; }
   .rules-list { margin: 0; padding-left: 1.75em; list-style: decimal; }
   .rules-list__item { padding: var(--space-3) 0 var(--space-3) 4px; border-bottom: 1px solid var(--color-border); }
   .rules-list__item:first-child { padding-top: 0; }

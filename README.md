@@ -37,7 +37,7 @@ All content is in `src/data/`. You never need to touch components.
 |---|---|---|
 | Price of a room type | `src/data/properties.js` | `roomTypes[].price` (number, e.g. `1700000`) |
 | Add / remove a room type | `src/data/properties.js` | `roomTypes` array |
-| Room size / "Harga untuk 1 orang" | `src/data/properties.js` | `roomTypes[].size`, `roomTypes[].occupancyNote` |
+| Room size / "Harga untuk 1 orang" (hidden on the room card while still `[ISI: ...]`; appears once filled in) | `src/data/properties.js` | `roomTypes[].size`, `roomTypes[].occupancyNote` |
 | Room letters / count | `src/data/properties.js` | `roomTypes[].rooms` (e.g. `'B – Q'`; `null` = "Semua kamar"), `roomTypes[].units`; all `units` must add up to `totalRooms` (`npm run verify:data` checks) |
 | Facility that differs per room type | `src/data/properties.js` | `roomTypes[].facilityIds` (only differing ones, e.g. Parahyangan bathrooms). Shared facilities go in the property's `facilityIds` |
 | Property facilities | `src/data/properties.js` | `facilityIds` (ids from `src/data/facilities.js`) |
@@ -48,7 +48,7 @@ All content is in `src/data/`. You never need to touch components.
 | Short location (cards) | `src/data/properties.js` | `locationLabel` (max ~40 characters) |
 | Full address (panel under the map) | `src/data/properties.js` | `address` |
 | Kost Putri / Kost Campur | `src/data/properties.js` | `kostType: 'putri'` or `'campur'` (one field per property). It drives the badge on the homepage card and the link-preview text. The wording itself is in `KOST_TYPES` at the top of the same file |
-| Deposit amount (kept in the data; not shown on the site since Update 04) | `src/data/properties.js` | `deposit` |
+| Deposit amount (line above the Tata Tertib rules on the property page) | `src/data/properties.js` | `deposit` (e.g. `500000` → "Deposit Rp500.000") |
 | Map pin | `src/data/properties.js` | `pin: { lat: '...', lng: '...' }` (map, "Buka di Maps" and every POI route follow it) |
 | Point of Interest | `src/data/pois.js` | `POI_CATALOG` (name, category, coordinates) and `POI_MINUTES_BY_SLUG` (minutes by motorcycle per property) |
 | POI photos | `poi-assets/` + `scripts/poi-photo-config.mjs` | see section 3 |
@@ -73,10 +73,10 @@ Property and hero photos live in `public/property-pictures/`, with their origina
 
 ```
 public/property-pictures/
-├── A7/            a7-1.jpg … a7-7.jpg
+├── A7/            a7-1.jpg … a7-7.jpg + standard/ superior/ deluxe/ (1.jpg, 2.jpg, …)
 ├── ALAMANDA/      alamanda1.jpg … alamanda4.jpg
 ├── H14/           fasad/ dapur/ standard/ deluxe/ superior/ + hall.jpg, basement-parking.jpg
-├── PARAHYANGAN/   (empty: Parahyangan still shows placeholders)
+├── PARAHYANGAN/   standard/ superior/ (1.jpg, 2.jpg, …) · small/ (empty)
 └── HERO-random/   homepage hero photos
 public/images/
 ├── brand/  logo.svg · og-default.jpg (1200×630)
@@ -94,7 +94,7 @@ cardCover: 'a7-2.jpg', // optional: homepage card only, this gallery photo comes
 
 The homepage card opens on the first gallery photo, or on `cardCover` when it is set (H14 and Alamanda use it). The property page and the "Hunian Homy Lainnya" cards always start with the first gallery photo.
 
-Room photos go in `roomTypes[].photos` the same way. A7's room cards currently show stand-in photos marked `tempPhotos: true` (amber outline + "Foto sementara" line on the card): put the right photos for that room type and delete `tempPhotos: true`.
+Room photos go in `roomTypes[].photos` the same way (numbered files in numeric order: `2.jpg` before `10.jpg`). A room type or property without photos uses `noPhoto(label)`: one empty slot with a simple room illustration and "Foto segera hadir" (Parahyangan Small and the Villa use it now). Replace it with `photos(...)` when the photos arrive.
 
 **Homepage hero:** every page load shows 5 random photos from `HERO_IMAGES` in `src/data/heroImages.js` on the curved row. To add one, copy it into `public/property-pictures/HERO-random/` and add its exact file name to that list (GitHub Pages cannot read the folder by itself). The cards are tall, so keep the subject near the middle. The current `public/images/brand/og-default.jpg` is a generated placeholder — replace it with a real 1200×630 image.
 

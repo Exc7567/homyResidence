@@ -45,7 +45,7 @@
   --color-white-80: rgba(255, 255, 255, 0.8);
   --color-white-60: rgba(255, 255, 255, 0.6);
   --color-white-15: rgba(255, 255, 255, 0.15);
-  --color-placeholder-flag: #F59E0B; /* amber outline: placeholders (dev only) and stand-in room photos */
+  --color-placeholder-flag: #F59E0B; /* dev-only amber outline for placeholders */
   --color-placeholder-chip: #FEF3C7; /* placeholder chip bg (dev) */
   --color-placeholder-chip-text: #7A4A00;
 
