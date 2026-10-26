@@ -1,13 +1,14 @@
 // "Tata Tertib Peraturan Kost", shown in the detail page's Tata Tertib section (owner text, Update 04).
-// Stored once for every property. `onlyFor` limits a rule to the listed property slugs.
+// Stored once for every property. `onlyFor` limits a rule to the listed property slugs; `except` hides it for the listed slugs.
 // Do not type numbers into the text: the list numbers itself, so a hidden rule never leaves a gap.
 
 export const HOUSE_RULES = [
   { text: 'Pembayaran uang kost dan deposit harap di transfer ke rekening BCA atas nama Dewi Tjandra dengan nomor rekening 7610797053. Tidak menerima uang cash / tunai.' },
-  { text: 'Uang deposit akan di transfer kembali ke penyewa dengan syarat pemberitahuan minimum 50 hari dari tanggal check out. Jika tidak ada pemberitahuan sebelumnya, uang deposit akan hangus.' },
+  { text: 'Uang deposit akan di transfer kembali ke penyewa dengan syarat pemberitahuan minimum 1 bulan dari tanggal check out. Jika tidak ada pemberitahuan sebelumnya, uang deposit akan hangus.' },
   { text: 'Bagi penyewa yang membawa mobil disediakan tempat parkir dibawah kanopi dengan biaya Rp. 150.000/bulan. Bagi yang sudah bayar parkir akan disediakan lot parkir private, sehingga orang lain tidak bisa menggunakan lot parkir tersebut.', onlyFor: ['h14'] },
-  { text: 'Setiap penyewa wajib menyerahkan foto KTP melalui WA: 081311654066. Setiap penyewa pasutri wajib menyerahkan foto copy KTP dan foto copy surat nikah.' },
-  { text: 'Pembayaran uang kost setiap tanggal 1. Akan diberikan tenggang waktu maksimal sampai tanggal 10 setiap bulan. Jika lebih dari tanggal 10, akan dikenakan denda sebesar Rp. 10.000/hari.' },
+  { text: 'Setiap penyewa wajib menyerahkan foto KTP melalui WA: 081311654066. Setiap penyewa pasutri wajib menyerahkan foto copy KTP dan foto copy surat nikah.', onlyFor: ['a7'] },
+  { text: 'Setiap penyewa wajib menyerahkan foto KTP melalui WA: 081311654066.', except: ['a7'] },
+  { text: 'Pembayaran uang kost setiap tanggal 1. Akan diberikan tenggang waktu maksimal sampai tanggal 5 setiap bulan. Jika lebih dari tanggal 5, akan dikenakan denda sebesar Rp. 10.000/hari.', except: ['alamanda'] },
   { text: 'Pembayaran uang kost tetap penuh meskipun bulan tersebut bulan liburan.' },
   { text: 'Batas menerima tamu jam 10 malam. Menerima tamu hanya diperbolehkan di ruangan yang tersedia untuk bertamu. Dilarang menerima tamu di dalam kamar.' },
   { text: 'Tamu tidak diperbolehkan untuk menginap, mandi, memasak. Harus atas persetujuan dan izin terlebih dahulu dari pemilik kost.' },
@@ -27,4 +28,4 @@ export const HOUSE_RULES = [
 ];
 
 export const houseRulesFor = (slug) =>
-  HOUSE_RULES.filter((r) => !r.onlyFor || r.onlyFor.includes(slug)).map((r) => r.text);
+  HOUSE_RULES.filter((r) => (!r.onlyFor || r.onlyFor.includes(slug)) && !(r.except && r.except.includes(slug))).map((r) => r.text);
