@@ -2,6 +2,8 @@
 // and every POI route URL identical to update-md/homy-properties-poi.md. Usage: npm run verify:data
 import fs from 'node:fs';
 import { PROPERTIES } from '../src/data/properties.js';
+import { houseRulesFor } from '../src/data/houseRules.js';
+import { scanRoomVideos } from './room-videos.mjs';
 
 let errors = 0;
 const fail = (m) => { errors += 1; console.error('✗ ' + m); };
@@ -50,6 +52,27 @@ for (const [slug, [type, address]] of Object.entries(UPDATE_03)) {
 
 const a7 = PROPERTIES.find((p) => p.slug === 'a7').pois.find((x) => x.id === 'uph-college');
 if (a7.routeUrl !== 'https://www.google.com/maps/dir/?api=1&origin=-6.228501,106.586875&destination=-6.228131,106.611514&travelmode=two-wheeler') fail('A7 → UPH College example URL');
+
+// Update 06: room letters written out (no ranges), Tata Tertib totals per property.
+for (const p of PROPERTIES.filter((x) => x.status === 'open')) {
+  for (const r of p.roomTypes) if (/[–-]/.test(r.rooms || '')) fail(`${p.slug} ${r.name}: room range "${r.rooms}" (write every letter)`);
+}
+const RULE_TOTALS = { a7: 23, h14: 24, parahyangan: 24, alamanda: 22 };
+for (const [slug, n] of Object.entries(RULE_TOTALS)) {
+  if (houseRulesFor(slug).length !== n) fail(`${slug}: ${houseRulesFor(slug).length} Tata Tertib rules, expected ${n}`);
+}
+
+// Room videos (public/property-videos/, scripts/room-videos.mjs): each one must match an open property's room type.
+const { videos, warnings } = scanRoomVideos();
+for (const w of warnings) console.warn('! video: ' + w);
+for (const [prop, rooms] of Object.entries(videos)) {
+  const p = PROPERTIES.find((x) => x.slug.toLowerCase() === prop && x.status === 'open');
+  for (const [room, v] of Object.entries(rooms)) {
+    const r = p?.roomTypes.find((x) => x.id.toLowerCase() === room || x.name.toLowerCase() === room);
+    if (r) console.log(`video ${p.slug}/${r.id}: ${v.file} (${v.mb.toFixed(1)} MB)`);
+    else fail(`video ${v.file}: no matching ${p ? 'room type' : 'property'} (folder names must be the property slug and the room type)`);
+  }
+}
 
 for (const p of PROPERTIES.filter((x) => x.status === 'open')) {
   console.log(`${p.slug.padEnd(12)} ${p.kostType} | ${p.totalRooms} kamar | ${p.roomTypes.map((r) => `${r.name} ${r.units} [${r.rooms ?? 'Semua'}]`).join(' · ')}`);

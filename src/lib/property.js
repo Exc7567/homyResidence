@@ -16,8 +16,8 @@ export const cardPhotos = (p) => {
   return i > 0 ? [p.gallery[i], ...p.gallery.filter((_, j) => j !== i)] : p.gallery;
 };
 
-// "Kamar A, B, C" / "Kamar B – Q" / "Semua kamar".
-export const roomsLabel = (room) => (room.rooms ? `Kamar ${room.rooms}` : 'Semua kamar');
+// The room letters of a room type: 'G, N, O' → ['G', 'N', 'O']; [] when rooms is null ("Semua kamar").
+export const roomLetters = (room) => (room.rooms ? room.rooms.split(',').map((s) => s.trim()).filter(Boolean) : []);
 
 // Detail facility order: ac, wifi, rest in array order, electricity_token last.
 export const orderedFacilityIds = (p) => {

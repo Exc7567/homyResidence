@@ -24,6 +24,8 @@ Other commands:
 | `npm run check:placeholders` | Lists everything that is still a placeholder |
 | `npm run check:placeholders -- --strict` | Same, but fails if anything is left (use before launch) |
 | `npm run lint` | Code check |
+| `npm run verify:data` | Checks room totals, POI routes, Tata Tertib totals and the room videos |
+| `npm run video:fix -- <file.mp4>` | Repairs a room video with a broken header (see section 3c) |
 
 In `npm run dev`, every placeholder has an **amber dashed outline** so you can spot it. Hover it to see "Placeholder: isi nanti".
 
@@ -38,7 +40,8 @@ All content is in `src/data/`. You never need to touch components.
 | Price of a room type | `src/data/properties.js` | `roomTypes[].price` (number, e.g. `1700000`) |
 | Add / remove a room type | `src/data/properties.js` | `roomTypes` array |
 | Room size / "Harga untuk 1 orang" (hidden on the room card while still `[ISI: ...]`; appears once filled in) | `src/data/properties.js` | `roomTypes[].size`, `roomTypes[].occupancyNote` |
-| Room letters / count | `src/data/properties.js` | `roomTypes[].rooms` (e.g. `'B – Q'`; `null` = "Semua kamar"), `roomTypes[].units`; all `units` must add up to `totalRooms` (`npm run verify:data` checks) |
+| Room letters / count | `src/data/properties.js` | `roomTypes[].rooms` (every letter written out, e.g. `'A, B, C, D'`, no ranges; `null` = "Semua kamar"), `roomTypes[].units`; all `units` must add up to `totalRooms` (`npm run verify:data` checks) |
+| Small tag after one room letter (e.g. A7 room O "Free TV Cable") | `src/data/properties.js` | `roomTypes[].roomNotes: { O: { text: 'Free TV Cable', icon: 'Tv' } }` (`icon` = a name listed in `src/components/common/Icon.jsx`) |
 | Facility that differs per room type | `src/data/properties.js` | `roomTypes[].facilityIds` (only differing ones, e.g. Parahyangan bathrooms). Shared facilities go in the property's `facilityIds` |
 | Property facilities | `src/data/properties.js` | `facilityIds` (ids from `src/data/facilities.js`) |
 | Facility names / icons | `src/data/facilities.js` | `label`, `icon` ([lucide icon names](https://lucide.dev/icons)) |
@@ -52,10 +55,14 @@ All content is in `src/data/`. You never need to touch components.
 | Map pin | `src/data/properties.js` | `pin: { lat: '...', lng: '...' }` (map, "Buka di Maps" and every POI route follow it) |
 | Point of Interest | `src/data/pois.js` | `POI_CATALOG` (name, category, coordinates) and `POI_MINUTES_BY_SLUG` (minutes by motorcycle per property) |
 | POI photos | `poi-assets/` + `scripts/poi-photo-config.mjs` | see section 3 |
-| Tata Tertib Peraturan Kost | `src/data/houseRules.js` | `HOUSE_RULES` (one list for every property; numbers are automatic). `onlyFor: ['h14']` shows a rule only for those properties (e.g. the parking rule) |
+| Tata Tertib Peraturan Kost | `src/data/houseRules.js` | `HOUSE_RULES` (one list for every property; numbers are automatic). `onlyFor: ['h14']` shows a rule only for those properties (e.g. the parking rule), `except: ['alamanda']` hides it there, `variants: { alamanda: '...' }` replaces its text for that property. The account number `7610797053` (tap to copy) and `081311654066` (opens WhatsApp) become clickable by themselves |
 | FAQ (same for every property) | `src/data/faq.js` | `FAQ` |
 | WhatsApp number | `src/data/brand.js` | `whatsappNumber` (digits only, e.g. `6281311654066`) |
-| WhatsApp prefilled messages | `src/lib/whatsapp.js` | `TEMPLATES` (keep `{property}`, `{room}`, `{price}`) |
+| WhatsApp prefilled messages | `src/lib/whatsapp.js` | `TEMPLATES` (keep `{property}`, `{room}`, `{price}`; `
+` = new line, `
+
+` = blank line) |
+| Room videos | `public/property-videos/` | see section 3c (no code to edit) |
 | Hero subtitle (under "HOMY RESIDENCE") | `src/data/brand.js` | `tagline` |
 | Hero photos (the curved row of five, random on every load) | `src/data/heroImages.js` | `HERO_IMAGES` (see section 3) |
 | Colors, fonts, sizes, radius | `src/styles/tokens.css` | CSS variables (values are estimates — correct freely). Font files: see section 3b |
@@ -73,10 +80,10 @@ Property and hero photos live in `public/property-pictures/`, with their origina
 
 ```
 public/property-pictures/
-├── A7/            a7-1.jpg … a7-7.jpg + standard/ superior/ deluxe/ (1.jpg, 2.jpg, …)
+├── A7/            a7-1.jpg … a7-7.jpg + standard/ superior/ deluxe/ (1.jpg, 2.jpg, …) · deluxe/NEW/ (Deluxe room card only)
 ├── ALAMANDA/      alamanda1.jpg … alamanda4.jpg
 ├── H14/           fasad/ dapur/ standard/ deluxe/ superior/ + hall.jpg, basement-parking.jpg
-├── PARAHYANGAN/   standard/ superior/ (1.jpg, 2.jpg, …) · small/ (empty)
+├── PARAHYANGAN/   standard/ superior/ (1.jpg, 2.jpg, …) · small/ (small.png)
 └── HERO-random/   homepage hero photos
 public/images/
 ├── brand/  logo.svg · og-default.jpg (1200×630)
@@ -94,7 +101,7 @@ cardCover: 'a7-2.jpg', // optional: homepage card only, this gallery photo comes
 
 The homepage card opens on the first gallery photo, or on `cardCover` when it is set (H14 and Alamanda use it). The property page and the "Hunian Homy Lainnya" cards always start with the first gallery photo.
 
-Room photos go in `roomTypes[].photos` the same way (numbered files in numeric order: `2.jpg` before `10.jpg`). A room type or property without photos uses `noPhoto(label)`: one empty slot with a simple room illustration and "Foto segera hadir" (Parahyangan Small and the Villa use it now). Replace it with `photos(...)` when the photos arrive.
+Room photos go in `roomTypes[].photos` the same way (numbered files in numeric order: `2.jpg` before `10.jpg`). A room type or property without photos uses `noPhoto(label)`: one empty slot with a simple room illustration and "Foto segera hadir" (the Villa uses it now). Replace it with `photos(...)` when the photos arrive.
 
 **Homepage hero:** every page load shows 5 random photos from `HERO_IMAGES` in `src/data/heroImages.js` on the curved row. To add one, copy it into `public/property-pictures/HERO-random/` and add its exact file name to that list (GitHub Pages cannot read the folder by itself). The cards are tall, so keep the subject near the middle. The current `public/images/brand/og-default.jpg` is a generated placeholder — replace it with a real 1200×630 image.
 
@@ -111,6 +118,27 @@ Room photos go in `roomTypes[].photos` the same way (numbered files in numeric o
 - **Josefin Sans** is the font of the whole site; **Nura** is used only for the logo text (header logo and the big homepage headline): "HOMY" in Nura Black, "RESIDENCE" in Nura Extra Light.
 - The web files are in `public/fonts/` (WOFF2, converted 1:1 from the originals in `font/`), declared in `src/styles/fonts.css`, and selected in `src/styles/tokens.css` (`--font-sans`, `--font-logo`, text sizes).
 - The font setup before Update 03 (Inter) is recorded in `FONT-AND-LAYOUT-BEFORE-UPDATE-03.md`, together with the exact steps to switch the site back to it (the Nura logo stays either way).
+
+### 3c. Room videos
+
+Every room card can play a video of that room: "Lihat Video" on the photos opens it full screen (9:16, the sides show a blurred, darkened copy of the video), always **without sound**. Close with ✕, Esc, a tap beside the video or the phone's back gesture. The button appears only when a video exists for that room type.
+
+1. Put the video in `public/property-videos/`, in the folder of the property, named after the room type (**.mp4** only, use the file as it is, no re-encoding):
+
+   ```
+   public/property-videos/
+   ├── A7/            Deluxe.mp4  — or —  DELUXE/deluxe.mp4 (one .mp4 per room-type folder)
+   ├── H14/           standard/standard.mp4, superior/…, executive/…
+   ├── PARAHYANGAN/   small/, standard/, superior/
+   └── ALAMANDA/      (no videos yet: no button is shown)
+   ```
+
+   Property folder = `A7`, `H14`, `PARAHYANGAN`, `ALAMANDA`; room type = `standard`, `superior`, `deluxe`, `executive`, `small` (upper or lower case both work).
+2. Build (`npm run build`, or push to `main`). The build scans the folder (`scripts/room-videos.mjs`) and the card shows the button; no code change. In `npm run dev` the page refreshes by itself when a video is added.
+3. `npm run verify:data` lists every video found and warns about videos that match no room type, other formats (.mov, …), files above 50 MB (GitHub rejects files above 100 MB) and a **broken H.264 header**.
+4. Broken header (some phone/editing apps write it; the first H14 videos had it): the video stops after a few frames in Chrome/Edge on many computers. Repair it without re-encoding: `npm run video:fix -- public/property-videos/H14/standard/standard.mp4` (only the broken header bytes are removed; picture and sound stay identical).
+
+Videos are only downloaded when the visitor taps "Lihat Video".
 
 ---
 

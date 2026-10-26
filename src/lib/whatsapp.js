@@ -3,11 +3,12 @@ import { formatRupiah } from './format';
 
 const TEMPLATES = {
   // OWNER WILL EDIT THESE LATER. Keep {placeholders} in curly braces.
+  // "\n" is a line break in the WhatsApp message; "\n\n" leaves one blank line between sections.
   general:  'Halo Homy Residence, saya ingin menanyakan hunian yang tersedia. Boleh dibantu?',
-  property: 'Halo Homy Residence, saya ingin menanyakan hunian {property}. Boleh dibantu?',
-  room:     'Halo Homy Residence, saya tertarik dengan kamar tipe {room} di {property} ({price}/bulan). Apakah masih tersedia?',
-  roomFull: 'Halo Homy Residence, kamar tipe {room} di {property} sedang penuh. Boleh saya masuk daftar tunggu?',
-  visit:    'Halo Homy Residence, saya ingin menjadwalkan visit ke {property}. Boleh dibantu?',
+  property: 'Halo Homy Residence, saya ingin menanyakan hunian\n\n* {property}\n\nBoleh dibantu?',
+  room:     'Halo Homy Residence, saya tertarik dengan kamar\n\n* Tipe {room} ({price}/bulan)\n* {property}\n\nApakah masih tersedia?',
+  roomFull: 'Halo Homy Residence, kamar ini sedang penuh\n\n* Tipe {room} ({price}/bulan)\n* {property}\n\nBoleh saya masuk daftar tunggu?',
+  visit:    'Halo Homy Residence, saya ingin menjadwalkan visit ke\n\n* {property}\n\nBoleh dibantu?',
 };
 
 export function buildWaMessage({ intent = 'general', property, room } = {}) {
@@ -24,3 +25,6 @@ export function buildWaLink(opts = {}) {
   const text = buildWaMessage(opts);
   return `https://wa.me/${BRAND.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
+
+// A plain chat with a phone number, no preloaded message. "081311654066" → https://wa.me/6281311654066
+export const buildWaChatLink = (phone) => `https://wa.me/${phone.replace(/\D/g, '').replace(/^0/, '62')}`;

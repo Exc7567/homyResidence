@@ -37,29 +37,39 @@ const H14_GALLERY = [
 ];
 
 // A7 room folders (Update 05, matched by folder name): standard/, superior/, deluxe/, numeric order.
+// Deluxe card = deluxe/NEW/ only (Update 06); the older deluxe/1-3 stay in the gallery.
 // There is no Executive folder: Executive keeps a7-1 to a7-3 (owner: these are its correct photos).
 const A7_ROOM_PHOTOS = {
   standard: ['standard/1.jpg', 'standard/2.jpg', 'standard/3.jpg'],
   superior: ['superior/1.jpg', 'superior/2.jpg', 'superior/3.jpg', 'superior/4.jpg'],
-  deluxe: ['deluxe/1.jpg', 'deluxe/2.jpg', 'deluxe/3.jpg'],
+  deluxe: ['deluxe/NEW/1.jpg', 'deluxe/NEW/2.jpg', 'deluxe/NEW/3.jpg', 'deluxe/NEW/4.jpg'],
   executive: ['a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg'],
 };
-// Gallery = every A7 photo, natural path order (the first one is the homepage and mini card photo).
+// Gallery = the A7 photos as of Update 05, natural path order (the first one is the homepage and mini card photo).
+// Listed by hand: deluxe/NEW/ is for the Deluxe card only and is not part of the gallery.
 const A7_GALLERY = [
   'a7-1.jpg', 'a7-2.jpg', 'a7-3.jpg', 'a7-4.jpg', 'a7-5.jpg', 'a7-6.jpg', 'a7-7.jpg',
-  ...A7_ROOM_PHOTOS.deluxe, ...A7_ROOM_PHOTOS.standard, ...A7_ROOM_PHOTOS.superior,
+  'deluxe/1.jpg', 'deluxe/2.jpg', 'deluxe/3.jpg', ...A7_ROOM_PHOTOS.standard, ...A7_ROOM_PHOTOS.superior,
 ];
 
-// Homy Parahyangan room folders (Update 05, matched by folder name): standard/, superior/; small/ is empty.
-// No photos directly in the property folder, so the gallery = the room photos, natural path order.
+// Homy Parahyangan room folders (matched by folder name): standard/, superior/, small/ (Update 06).
+// Standard card = standard/1-3 (owner removed the 4th from the card, Update 06); the gallery keeps all 4.
+// No photos directly in the property folder, so the gallery = the Update 05 room photos, natural path order.
 const PARAHYANGAN_ROOM_PHOTOS = {
-  standard: ['standard/1.jpg', 'standard/2.jpg', 'standard/3.jpg', 'standard/4.jpg'],
+  small: ['small/small.png'],
+  standard: ['standard/1.jpg', 'standard/2.jpg', 'standard/3.jpg'],
   superior: ['superior/1.jpg', 'superior/2.jpg', 'superior/3.jpg'],
 };
-const PARAHYANGAN_GALLERY = [...PARAHYANGAN_ROOM_PHOTOS.standard, ...PARAHYANGAN_ROOM_PHOTOS.superior];
+const PARAHYANGAN_GALLERY = [
+  'standard/1.jpg', 'standard/2.jpg', 'standard/3.jpg', 'standard/4.jpg',
+  ...PARAHYANGAN_ROOM_PHOTOS.superior,
+];
 
 // Room types:
-//   rooms     = room letters/names as shown on the card ("Kamar ..."); null → "Semua kamar"
+//   rooms     = room letters/names as shown on the card ("Kamar ..."), every one written out, comma separated
+//               (no ranges such as "A – D"); null → "Semua kamar"
+//   roomNotes = optional small tag right after one room letter, e.g. { O: { text: 'Free TV Cable', icon: 'Tv' } }
+//               (icon = a name from src/components/common/Icon.jsx)
 //   units     = number of rooms of this type (all types must add up to totalRooms)
 //   facilityIds = ONLY facilities that differ between this property's room types.
 //               Facilities shared by every room type live in the property's facilityIds (Fasilitas section).
@@ -103,6 +113,7 @@ export const PROPERTIES = [
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
         photos: photos('A7', 'Homy Permata A7 — Deluxe', A7_ROOM_PHOTOS.deluxe) },
       { id: 'executive', name: 'Executive', price: 2500000, units: 3, rooms: 'G, N, O', facilityIds: [],
+        roomNotes: { O: { text: 'Free TV Cable', icon: 'Tv' } },
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
         photos: photos('A7', 'Homy Permata A7 — Executive', A7_ROOM_PHOTOS.executive) },
     ],
@@ -133,7 +144,7 @@ export const PROPERTIES = [
       parking_basement: 'Parkir motor gratis. Parkir mobil Rp150.000/bulan untuk menjaga/memesan slot parkir.',
     },
     roomTypes: [
-      { id: 'standard',  name: 'Standard',  price: 1700000, units: 16, rooms: 'B – Q', facilityIds: [],
+      { id: 'standard',  name: 'Standard',  price: 1700000, units: 16, rooms: 'B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q', facilityIds: [],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
         photos: photos('H14', 'Homy Residence H14 Tipe Standard', H14_ROOM_PHOTOS.standard) },
       { id: 'superior',  name: 'Superior',  price: 1850000, units: 1, rooms: 'R', facilityIds: [],
@@ -168,11 +179,12 @@ export const PROPERTIES = [
     roomTypes: [
       // Small: same facilities as the other types; the only difference is the bathroom outside.
       { id: 'small',    name: 'Small',    price: 1200000, units: 1, rooms: 'L', facilityIds: ['bathroom_out'],
-        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]', photos: noPhoto('Homy Parahyangan — Small') },
-      { id: 'standard', name: 'Standard', price: 1450000, units: 9, rooms: 'E – K, M, N', facilityIds: ['bathroom_out'],
+        size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
+        photos: photos('PARAHYANGAN', 'Homy Parahyangan — Small', PARAHYANGAN_ROOM_PHOTOS.small) },
+      { id: 'standard', name: 'Standard', price: 1450000, units: 9, rooms: 'E, F, G, H, I, J, K, M, N', facilityIds: ['bathroom_out'],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
         photos: photos('PARAHYANGAN', 'Homy Parahyangan — Standard', PARAHYANGAN_ROOM_PHOTOS.standard) },
-      { id: 'superior', name: 'Superior', price: 1650000, units: 4, rooms: 'A – D', facilityIds: ['bathroom_in'],
+      { id: 'superior', name: 'Superior', price: 1650000, units: 4, rooms: 'A, B, C, D', facilityIds: ['bathroom_in'],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
         photos: photos('PARAHYANGAN', 'Homy Parahyangan — Superior', PARAHYANGAN_ROOM_PHOTOS.superior) },
     ],

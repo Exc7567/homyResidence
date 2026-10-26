@@ -498,6 +498,91 @@
   }
   .room-card__rooms { display: flex; align-items: flex-start; gap: 6px; font-weight: 500; overflow-wrap: anywhere; }
   .room-card__rooms svg { flex-shrink: 0; margin-top: 3px; color: var(--color-teal); }
+  /* A room letter with its small note tag (e.g. A7 room O "Free TV Cable"): kept together on one line */
+  .room-letter { white-space: nowrap; }
+  .room-note { margin-left: 6px; vertical-align: 1px; line-height: 1.5; }
+  .room-card__rooms .room-note svg { margin-top: 0; color: currentColor; }
+
+  /* Room video: "Lihat Video" on the photos opens the video popup (below) */
+  .room-card__media { position: relative; }
+  .room-video-btn {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--color-counter-bg);
+    color: var(--color-primary-contrast);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    box-shadow: var(--shadow-card);
+    transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  /* 44px hit area around the 32px pill */
+  .room-video-btn::before { content: ''; position: absolute; inset: -6px; }
+  .room-video-btn:hover { background: var(--color-primary); }
+  .room-video-btn:active { transform: scale(0.96); }
+  /* Room video popup: the 9:16 video fills the screen height; the sides show a blurred, darkened copy */
+  .video-popup {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+    color: var(--color-primary-contrast);
+  }
+  .video-popup__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(28px) brightness(0.45);
+    transform: scale(1.2); /* hides the soft edges of the blur */
+  }
+  .video-popup__video {
+    position: relative;
+    height: min(100dvh, calc(100vw * 16 / 9));
+    max-width: 100vw;
+    aspect-ratio: 9 / 16;
+    object-fit: contain;
+    background: #000;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+  }
+  .video-popup__video:focus-visible { outline-offset: -2px; }
+  /* No sound: hide the volume controls (WebKit/Blink; the video also stays muted in code) */
+  .video-popup__video::-webkit-media-controls-mute-button,
+  .video-popup__video::-webkit-media-controls-volume-slider,
+  .video-popup__video::-webkit-media-controls-volume-control-container { display: none; }
+  .video-popup__top {
+    position: absolute;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: calc(var(--space-2) + env(safe-area-inset-top)) var(--space-4) var(--space-6);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent);
+    pointer-events: none;
+  }
+  .video-popup__caption { font-size: var(--fs-small); font-weight: 600; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+  .video-popup__close {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.35); border: 0; color: inherit; border-radius: var(--radius-pill);
+    pointer-events: auto;
+    transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .video-popup__close:hover { background: var(--color-white-15); transform: rotate(90deg); }
   .room-card__footer {
     display: flex;
     align-items: center;
@@ -549,6 +634,34 @@
   .rules-list__item:first-child { padding-top: 0; }
   .rules-list__item:last-child { border-bottom: 0; padding-bottom: 0; }
   .rules-list__item::marker { font-weight: 600; color: var(--color-teal); }
+  /* In a rule: the account number copies itself (dotted underline + copy icon), the phone number opens WhatsApp */
+  .rule-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: none;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+    vertical-align: baseline;
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .rule-copy__number { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .rule-copy svg { flex-shrink: 0; color: var(--color-teal); }
+  .rule-copy:hover { color: var(--color-teal); background: var(--color-teal-soft); }
+  .rule-link {
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .rule-link:hover { color: var(--color-teal); }
 
   /* Other properties */
   .other-props { padding-top: var(--space-10); }
