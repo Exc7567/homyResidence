@@ -9,6 +9,7 @@ export const HOUSE_RULES = [
   { text: 'Setiap penyewa wajib menyerahkan foto KTP melalui WA: 081311654066. Setiap penyewa pasutri wajib menyerahkan foto copy KTP dan foto copy surat nikah.', onlyFor: ['a7'] },
   { text: 'Setiap penyewa wajib menyerahkan foto KTP melalui WA: 081311654066.', except: ['a7'] },
   { text: 'Pembayaran uang kost setiap tanggal 1. Akan diberikan tenggang waktu maksimal sampai tanggal 5 setiap bulan. Jika lebih dari tanggal 5, akan dikenakan denda sebesar Rp. 10.000/hari.', except: ['alamanda'] },
+  { text: 'Pembayaran uang kos setiap tanggal jatuh tempo, akan diberikan tenggang waktu maksimal 1 hari dari tanggal jatuh tempo, jika lebih dari 1 hari akan dikenakan dengan Rp10.000 perhari', onlyFor: ['alamanda'] },
   { text: 'Pembayaran uang kost tetap penuh meskipun bulan tersebut bulan liburan.' },
   { text: 'Batas menerima tamu jam 10 malam. Menerima tamu hanya diperbolehkan di ruangan yang tersedia untuk bertamu. Dilarang menerima tamu di dalam kamar.' },
   { text: 'Tamu tidak diperbolehkan untuk menginap, mandi, memasak. Harus atas persetujuan dan izin terlebih dahulu dari pemilik kost.' },
