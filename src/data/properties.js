@@ -82,6 +82,10 @@ export const KOST_TYPES = {
   campur: { label: 'Kost Campur' },
 };
 
+// Homepage card travel rows (POI ids from pois.js, minutes from POI_MINUTES_BY_SLUG, shown sorted by minutes).
+// No `cardPoiIds` → the card shows the nearest campus only.
+const TANGERANG_CARD_POIS = ['uph', 'uph-college', 'supermal-karawaci'];
+
 export const PROPERTIES = [
   /* ------------------------------------------------ 1. A7 */
   {
@@ -93,7 +97,7 @@ export const PROPERTIES = [
     kostType: 'campur',                // see KOST_TYPES above (badge on the homepage card, link preview)
     name: 'Homy Permata A7',
     shortName: 'Permata A7',
-    locationLabel: 'Taman Permata, Binong, Tangerang',
+    locationLabel: 'Lippo Karawaci, Taman Permata, Binong, Tangerang',
     address: 'Jl. Permata Sari sektor 5 Blok A7 No.33, Binong, Kec. Curug, Kabupaten Tangerang, Banten 15810',
     pin: { lat: '-6.228501', lng: '106.586875' },
     totalRooms: 18,
@@ -102,6 +106,7 @@ export const PROPERTIES = [
     facilityIds: ['ac', 'wifi', 'furnished', 'bathroom_in', 'water_heater', 'laundry_free', 'parking_front', 'electricity_token'],
     uniqueFacilityIds: [], // "Unggulan" marker on the detail page
     cardHighlights: ['4 tipe kamar, termasuk Deluxe', 'Kamar mandi dalam + water heater di semua kamar'], // max 2, never the price
+    cardPoiIds: TANGERANG_CARD_POIS,
     roomTypes: [
       { id: 'standard',  name: 'Standard',  price: 1700000, units: 9, rooms: 'A, B, C, D, H, I, J, K, Q', facilityIds: [],
         size: '[ISI: luas kamar, contoh "3 x 4 m"]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
@@ -140,6 +145,7 @@ export const PROPERTIES = [
     uniqueFacilityIds: ['parking_basement'],
     // Basement parking is NOT a card highlight: parking never appears on the homepage.
     cardHighlights: ['Kamar mandi dalam + water heater di semua kamar'],
+    cardPoiIds: ['ubaya', 'alfamidi-rungkut', 'palapa-swalayan'],
     facilityNotes: {
       parking_basement: 'Parkir motor gratis. Parkir mobil Rp150.000/bulan untuk menjaga/memesan slot parkir.',
     },
@@ -166,7 +172,7 @@ export const PROPERTIES = [
     kostType: 'campur',
     name: 'Homy Parahyangan',
     shortName: 'Parahyangan',
-    locationLabel: 'Taman Parahyangan, Binong, Tangerang',
+    locationLabel: 'Lippo Karawaci, Taman Parahyangan, Binong, Tangerang',
     address: 'Jl. Taman Parahyangan I No.88, Binong, Kec. Curug, Kabupaten Tangerang, Banten 15810',
     pin: { lat: '-6.226586', lng: '106.583741' },
     totalRooms: 14,
@@ -176,6 +182,7 @@ export const PROPERTIES = [
     facilityIds: ['ac', 'wifi', 'furnished', 'water_heater', 'laundry_free', 'parking_front', 'electricity_token'],
     uniqueFacilityIds: [],
     cardHighlights: ['Ada tipe Small, pilihan paling hemat'],
+    cardPoiIds: TANGERANG_CARD_POIS,
     roomTypes: [
       // Small: same facilities as the other types; the only difference is the bathroom outside.
       { id: 'small',    name: 'Small',    price: 1200000, units: 1, rooms: 'L', facilityIds: ['bathroom_out'],
@@ -211,6 +218,7 @@ export const PROPERTIES = [
     facilityIds: ['ac', 'wifi', 'furnished', 'bathroom_out', 'washing_machine', 'parking_front', 'electricity_token'],
     uniqueFacilityIds: ['washing_machine'],
     cardHighlights: ['Mesin cuci tersedia di lantai 4', 'Pilihan paling hemat'],
+    cardPoiIds: TANGERANG_CARD_POIS,
     roomTypes: [
       { id: 'standard', name: 'Standard', price: 1000000, units: 40, rooms: null, facilityIds: [],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',

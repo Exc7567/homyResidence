@@ -14,6 +14,7 @@ export const POI_CATEGORIES = [
 
 export const POI_CATEGORY_LABELS = Object.fromEntries(POI_CATEGORIES.map((c) => [c.id, c.label]));
 
+// Optional `cardName` = shorter name for the homepage card (detail page keeps `name`).
 export const POI_CATALOG = {
   // Surabaya
   'ubaya':                  { name: 'Universitas Surabaya (UBAYA)',     category: 'universitas', lat: '-7.320103', lng: '112.767937' },
@@ -29,7 +30,7 @@ export const POI_CATALOG = {
   // Tangerang
   'pramita':                { name: 'Universitas Pramita Indonesia',    category: 'universitas', lat: '-6.234057', lng: '106.585048' },
   'uph-college':            { name: 'UPH College',                      category: 'universitas', lat: '-6.228131', lng: '106.611514' },
-  'uph':                    { name: 'Universitas Pelita Harapan (UPH)', category: 'universitas', lat: '-6.228373', lng: '106.611269' },
+  'uph':                    { name: 'Universitas Pelita Harapan (UPH)', cardName: 'Universitas Pelita Harapan', category: 'universitas', lat: '-6.228373', lng: '106.611269' },
   'supermal-karawaci':      { name: 'Supermal Karawaci',                category: 'mall',        lat: '-6.226553', lng: '106.607182' },
   'maxxbox-lippo-village':  { name: 'MaxxBox Lippo Village',            category: 'mall',        lat: '-6.229035', lng: '106.606565' },
   'indomaret-taman-permata': { name: 'Indomaret Taman Permata',         category: 'supermarket', lat: '-6.227609', lng: '106.582488' },

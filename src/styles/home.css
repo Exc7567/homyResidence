@@ -305,6 +305,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .property-card__campuses { display: flex; flex-direction: column; gap: 6px; }
   .property-card__campus {
     display: flex;
     flex-wrap: wrap;

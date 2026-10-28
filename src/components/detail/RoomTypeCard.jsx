@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { DoorClosed, Play, Ruler, Users } from 'lucide-react';
+import { DoorClosed, MessageCircle, Play, Ruler, Users } from 'lucide-react';
 import { FACILITIES } from '../../data/facilities';
 import { hasPlaceholder } from '../../lib/placeholders';
 import { roomLetters } from '../../lib/property';
@@ -110,6 +110,10 @@ export default function RoomTypeCard({ room, property, onOpenPhoto }) {
             <span className="price-suffix"> /bulan</span>
           </p>
           <WhatsAppButton intent="room" property={property} room={room} className="room-card__cta" />
+          <p className="room-card__note">
+            <MessageCircle size={14} aria-hidden="true" />
+            Silakan chat kami untuk mengetahui ketersediaan kamar.
+          </p>
         </div>
       </div>
     </article>

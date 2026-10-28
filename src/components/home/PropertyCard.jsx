@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { badgeLabel, cardHighlights, cardPhotos, nearestCampus, priceFrom } from '../../lib/property';
+import { badgeLabel, cardDestinations, cardHighlights, cardPhotos, priceFrom } from '../../lib/property';
 import { formatMinutes } from '../../lib/format';
 import HighlightChip from '../common/HighlightChip';
 import ImageCarousel from '../common/ImageCarousel';
@@ -14,7 +14,7 @@ export default function PropertyCard({ property: p, priority = false }) {
   const navigate = useNavigate();
   const href = `/${p.slug}`;
   const highlights = cardHighlights(p);
-  const campus = nearestCampus(p);
+  const destinations = cardDestinations(p);
 
   return (
     <article className="property-card group" aria-labelledby={`card-${p.slug}`}>
@@ -42,11 +42,15 @@ export default function PropertyCard({ property: p, priority = false }) {
           <Text value={p.locationLabel} className="property-card__location-text" />
         </p>
 
-        {campus && (
-          <p className="property-card__campus">
-            <span className="property-card__campus-time tabular">🏍️ {formatMinutes(campus.minutes)}</span>
-            <span>ke {campus.name}</span>
-          </p>
+        {destinations.length > 0 && (
+          <ul className="property-card__campuses">
+            {destinations.map((poi) => (
+              <li key={poi.id} className="property-card__campus">
+                <span className="property-card__campus-time tabular">🏍️ {formatMinutes(poi.minutes)}</span>
+                <span>ke {poi.cardName ?? poi.name}</span>
+              </li>
+            ))}
+          </ul>
         )}
 
         {highlights.length > 0 && (

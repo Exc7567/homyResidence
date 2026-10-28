@@ -60,3 +60,18 @@ STATUS: UPDATE-06 COMPLETE 2026-10-26 (not committed; owner to review/commit).
 - [x] R5 README 3c + public/property-videos/README.md updated; package.json `video:fix`.
 - [x] R6 lint, verify:data, build OK; all 10 dist videos have a clean header. Browser (headed Chrome, GPU decoding on, desktop 1366 + mobile 390): dev server 276/276 ×2, production build 276/276 — every room video opens, plays (t > 1 s), muted, 9:16, fills screen, blurred sides drawn, closes by ✕/Esc/backdrop/back, scroll position + focus restored, no mp4 before click, Alamanda no button, no console errors. (Earlier scroll "failures" were Playwright's own click auto-scroll under `scroll-behavior: smooth`; real mouse/touch clicks keep the position.)
 STATUS: REVISION 1 COMPLETE 2026-10-26 (not committed).
+
+## Revision 2 (owner, 2026-10-28): homepage card location + travel rows
+Owner answers: keep existing minutes; 3 rows sorted by minutes for A7/Parahyangan/Alamanda (H14 keeps UBAYA); location wraps naturally; Pramita removed from cards only (stays in the detail POI list).
+- [x] C1 locationLabel: A7 'Lippo Karawaci, Taman Permata, Binong, Tangerang', Parahyangan 'Lippo Karawaci, Taman Parahyangan, Binong, Tangerang' (also used by the detail header + "other properties" mini cards). Mini-card location clamp 2 → 3 lines (detail.css) so the Parahyangan label is never cut on tablet/mobile; homepage card stays at 2 lines (fits at 1366/820/390).
+- [x] C2 Card travel rows: `cardPoiIds: ['uph', 'uph-college', 'supermal-karawaci']` (TANGERANG_CARD_POIS) on A7, Parahyangan, Alamanda; `cardDestinations()` in lib/property.js (sorted by minutes, ties keep listed order; no cardPoiIds → nearestCampus, i.e. H14 UBAYA). PropertyCard renders a <ul> of rows. `cardName: 'Universitas Pelita Harapan'` on the uph catalog entry (detail page keeps "(UPH)").
+- [x] C3 Minutes (unchanged pois.js data): A7 Supermal 10, UPH 12, UPH College 12 · Parahyangan 12, 14, 14 · Alamanda 3, 5, 5 · H14 UBAYA 3.
+- [x] C4 README table: locationLabel note + cardPoiIds/cardName row.
+- [x] C5 lint, verify:data, build OK; preview at 1366/820/390: rows + labels correct, no clipped location text, no horizontal overflow, no console errors.
+STATUS: REVISION 2 COMPLETE 2026-10-28 (not committed).
+
+## Revision 3 (owner, 2026-10-28): H14 card rows + room-card availability note
+- [x] D1 H14 homepage card looked empty → `cardPoiIds: ['ubaya', 'alfamidi-rungkut', 'palapa-swalayan']` (existing minutes): Alfamidi Rungkut ~2, UBAYA ~3, Palapa Swalayan ~5 (sorted by minutes, same rule as the Tangerang cards). Every open property now has `cardPoiIds`; the nearest-campus fallback stays for future properties.
+- [x] D2 Every room card (detail page, all 11 room types): small muted note under price + Book Now, full width, teal MessageCircle icon: "Silakan chat kami untuk mengetahui ketersediaan kamar." (owner's draft "tolong chat untuk mengetahui availibility kamar", reworded to Indonesian). `.room-card__note` in detail.css (--fs-xs).
+- [x] D3 lint, verify:data, build OK; preview 1366 + 390: H14 card 3 rows, note on A7 4 / H14 3 / Parahyangan 3 / Alamanda 1 room cards, no horizontal overflow, no console errors.
+STATUS: REVISION 3 COMPLETE 2026-10-28 (not committed).

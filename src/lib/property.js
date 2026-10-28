@@ -27,5 +27,15 @@ export const orderedFacilityIds = (p) => {
   return [...first, ...rest, ...last];
 };
 
-// Nearest campus for the homepage card (pois are already sorted by minutes within a category).
+// Nearest campus (pois are already sorted by minutes within a category).
 export const nearestCampus = (p) => (p.pois || []).find((poi) => poi.category === 'universitas') || null;
+
+// Homepage card travel rows: the property's `cardPoiIds` sorted by minutes (ties keep the listed order);
+// without `cardPoiIds`, the nearest campus only.
+export const cardDestinations = (p) => {
+  if (!p.cardPoiIds) return [nearestCampus(p)].filter(Boolean);
+  return p.cardPoiIds
+    .map((id) => (p.pois || []).find((poi) => poi.id === id))
+    .filter(Boolean)
+    .sort((a, b) => a.minutes - b.minutes);
+};

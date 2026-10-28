@@ -48,7 +48,8 @@ All content is in `src/data/`. You never need to touch components.
 | Homepage card highlights | `src/data/properties.js` | `cardHighlights` (max 2; never repeat the price or mention parking) |
 | "Unggulan" marker (detail page) | `src/data/properties.js` | `uniqueFacilityIds` |
 | Extra line under a facility (e.g. H14 parking) | `src/data/properties.js` | `facilityNotes: { parking_basement: '...' }` |
-| Short location (cards) | `src/data/properties.js` | `locationLabel` (max ~40 characters) |
+| Short location (cards) | `src/data/properties.js` | `locationLabel` (wraps to 2 lines on the homepage card, 3 on the mini cards; keep it under ~55 characters) |
+| Travel rows on the homepage card | `src/data/properties.js` | `cardPoiIds` (POI ids from `src/data/pois.js`, shown sorted by minutes; no `cardPoiIds` → nearest campus only). Optional `cardName` in `POI_CATALOG` = shorter name on the card |
 | Full address (panel under the map) | `src/data/properties.js` | `address` |
 | Kost Putri / Kost Campur | `src/data/properties.js` | `kostType: 'putri'` or `'campur'` (one field per property). It drives the badge on the homepage card and the link-preview text. The wording itself is in `KOST_TYPES` at the top of the same file |
 | Deposit amount (line above the Tata Tertib rules on the property page) | `src/data/properties.js` | `deposit` (e.g. `500000` → "Deposit Rp500.000") |
