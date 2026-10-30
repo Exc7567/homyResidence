@@ -1,5 +1,7 @@
 // FAQ (same five questions for every property). Only information that is NOT stated
 // anywhere else on the detail page belongs here (UPDATE-01 §8.5).
+// CONTACT_PHONE in an answer becomes a WhatsApp chat link (RuleText).
+import { CONTACT_PHONE } from './houseRules.js';
 
 export const FAQ = [
   { q: 'Bagaimana cara booking?',
@@ -9,7 +11,7 @@ export const FAQ = [
   { q: 'Bagaimana cara pembayaran sewa?',
     a: 'Transfer bank, dibayar di awal bulan.' },
   { q: 'Apakah masa sewa bisa diperpanjang atau pindah kamar?',
-    a: '[ISI: aturan perpanjangan sewa dan pindah kamar]' },
+    a: `Bisa. Silakan hubungi nomor ${CONTACT_PHONE}.` },
   { q: 'Jam berapa tim bisa dihubungi?',
     a: 'Setiap hari 08.00–21.00.' },
 ];

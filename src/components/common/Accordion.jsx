@@ -3,7 +3,8 @@ import { ChevronDown } from 'lucide-react';
 import Text from './Text';
 
 // Single-open accordion (WAI-ARIA pattern). Height animates via grid rows.
-export default function Accordion({ items }) {
+// `renderAnswer` (optional) turns an answer string into rich content, e.g. links.
+export default function Accordion({ items, renderAnswer }) {
   const [open, setOpen] = useState(-1);
   const baseId = useId();
   return (
@@ -29,7 +30,9 @@ export default function Accordion({ items }) {
             </h4>
             <div id={panelId} role="region" aria-labelledby={btnId} className="accordion__panel">
               <div className="accordion__inner">
-                <Text as="p" value={item.a} className="accordion__answer" />
+                {renderAnswer
+                  ? <p className="accordion__answer">{renderAnswer(item.a)}</p>
+                  : <Text as="p" value={item.a} className="accordion__answer" />}
               </div>
             </div>
           </div>

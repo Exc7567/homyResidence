@@ -10,7 +10,7 @@ export const sortedRoomTypes = (p) => [...p.roomTypes].sort((a, b) => a.price - 
 
 export const cardHighlights = (p) => (p.cardHighlights || []).slice(0, 2);
 
-// Homepage card photos: the gallery, starting with `cardCover` (a gallery file, e.g. 'alamanda4.jpg') when set.
+// Homepage card photos: the gallery, starting with `cardCover` (a gallery file, e.g. 'superior/IMG-20261019-WA0213.jpg') when set.
 export const cardPhotos = (p) => {
   const i = p.cardCover ? p.gallery.findIndex((g) => g.src?.endsWith('/' + encodeURI(p.cardCover))) : -1;
   return i > 0 ? [p.gallery[i], ...p.gallery.filter((_, j) => j !== i)] : p.gallery;

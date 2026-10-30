@@ -75,3 +75,11 @@ STATUS: REVISION 2 COMPLETE 2026-10-28 (not committed).
 - [x] D2 Every room card (detail page, all 11 room types): small muted note under price + Book Now, full width, teal MessageCircle icon: "Silakan chat kami untuk mengetahui ketersediaan kamar." (owner's draft "tolong chat untuk mengetahui availibility kamar", reworded to Indonesian). `.room-card__note` in detail.css (--fs-xs).
 - [x] D3 lint, verify:data, build OK; preview 1366 + 390: H14 card 3 rows, note on A7 4 / H14 3 / Parahyangan 3 / Alamanda 1 room cards, no horizontal overflow, no console errors.
 STATUS: REVISION 3 COMPLETE 2026-10-28 (not committed).
+
+## Revision 4 (owner, 2026-10-30): Alamanda photo order + FAQ placeholder
+- [x] E1 Owner replaced public/property-pictures/ALAMANDA/alamanda1-4.jpg (files are .jpg, not .png). New content: 1-2 = room, 3-4 = building (the reverse of Update 04).
+- [x] E2 Homepage card: `cardCover: 'alamanda4.jpg'` removed → slides in file order alamanda1, 2, 3, 4 (counter 1/4, first slide alamanda1). Detail gallery already 1-4 (unchanged). Room card "Standard" photos were ['alamanda4', 'alamanda3'] (now building shots) → ['alamanda1', 'alamanda2'] (room shots). Comment updated.
+- [x] E3 Placeholder sweep (`check:placeholders` + grep "[ISI:" in src): the only one visitors could see was FAQ "Apakah masa sewa bisa diperpanjang atau pindah kamar?". Still left but hidden on the site: room `size` / `occupancyNote` (RoomTypeCard hides them) and the Villa `locationLabel` (under-construction card hides it). The FAQ is one shared list (src/data/faq.js), so the question exists once and shows on all 4 property pages.
+- [x] E4 Answer: "Bisa. Silakan hubungi nomor 081311654066." (built from CONTACT_PHONE in houseRules.js). FaqSection passes answers through RuleText (new optional `renderAnswer` prop on Accordion) → the number is a wa.me/6281311654066 link (new tab, noopener noreferrer), same style as the Tata Tertib.
+- [x] E5 lint, verify:data, check:placeholders (FAQ gone; 25 left = room size/occupancy + Villa), build OK. Preview 1366 + 390: Alamanda card starts at alamanda1; room card 1-2; FAQ link correct on a7/h14/parahyangan/alamanda; no visible "[ISI:" on any property page; no console errors.
+STATUS: REVISION 4 COMPLETE 2026-10-30 (not committed).

@@ -212,9 +212,8 @@ export const PROPERTIES = [
     pin: { lat: '-6.223237', lng: '106.604628' },
     totalRooms: 40,
     deposit: 200000,
-    // alamanda1-2 = building, alamanda3-4 = room (owner, Update 04)
+    // alamanda1-2 = room, alamanda3-4 = building (owner, 2026-10-30); card + gallery in file order 1-4
     gallery: photos('ALAMANDA', 'Homy Budget Alamanda', ['alamanda1.jpg', 'alamanda2.jpg', 'alamanda3.jpg', 'alamanda4.jpg']),
-    cardCover: 'alamanda4.jpg', // homepage card only: this gallery photo comes first
     facilityIds: ['ac', 'wifi', 'furnished', 'bathroom_out', 'washing_machine', 'parking_front', 'electricity_token'],
     uniqueFacilityIds: ['washing_machine'],
     cardHighlights: ['Mesin cuci tersedia di lantai 4', 'Pilihan paling hemat'],
@@ -222,7 +221,7 @@ export const PROPERTIES = [
     roomTypes: [
       { id: 'standard', name: 'Standard', price: 1000000, units: 40, rooms: null, facilityIds: [],
         size: '[ISI: luas kamar]', occupancyNote: '[ISI: contoh "Harga untuk 1 orang"]',
-        photos: photos('ALAMANDA', 'Homy Budget Alamanda Tipe Standard', ['alamanda4.jpg', 'alamanda3.jpg']) },
+        photos: photos('ALAMANDA', 'Homy Budget Alamanda Tipe Standard', ['alamanda1.jpg', 'alamanda2.jpg']) },
     ],
   },
 
