@@ -75,7 +75,7 @@ Pin: -6.228501, 106.586875
 ### Hospital
 | POI | 🏍️ Motorcycle | Route |
 |---|---|---|
-| Siloam Hospitals Lippo Village | 🏍️ ~7 min | [Route](https://www.google.com/maps/dir/?api=1&origin=-6.228501,106.586875&destination=-6.225462,106.598768&travelmode=two-wheeler) |
+| Siloam Hospital Lippo Village | 🏍️ ~7 min | [Route](https://www.google.com/maps/dir/?api=1&origin=-6.228501,106.586875&destination=-6.225462,106.598768&travelmode=two-wheeler) |
 
 ### Supermarket
 | POI | 🏍️ Motorcycle | Route |
@@ -105,7 +105,7 @@ Pin: -6.223237, 106.604628
 ### Hospital
 | POI | 🏍️ Motorcycle | Route |
 |---|---|---|
-| Siloam Hospitals Lippo Village | 🏍️ ~4 min | [Route](https://www.google.com/maps/dir/?api=1&origin=-6.223237,106.604628&destination=-6.225462,106.598768&travelmode=two-wheeler) |
+| Siloam Hospital Lippo Village | 🏍️ ~4 min | [Route](https://www.google.com/maps/dir/?api=1&origin=-6.223237,106.604628&destination=-6.225462,106.598768&travelmode=two-wheeler) |
 
 ### Supermarket
 | POI | 🏍️ Motorcycle | Route |
@@ -134,7 +134,7 @@ Pin: -6.226586, 106.583741
 ### Hospital
 | POI | 🏍️ Motorcycle | Route |
 |---|---|---|
-| Siloam Hospitals Lippo Village | 🏍️ ~8 min | [Route](https://www.google.com/maps/dir/?api=1&origin=-6.226586,106.583741&destination=-6.225462,106.598768&travelmode=two-wheeler) |
+| Siloam Hospital Lippo Village | 🏍️ ~8 min | [Route](https://www.google.com/maps/dir/?api=1&origin=-6.226586,106.583741&destination=-6.225462,106.598768&travelmode=two-wheeler) |
 
 ### Supermarket
 | POI | 🏍️ Motorcycle | Route |

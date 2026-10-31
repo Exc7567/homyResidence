@@ -83,3 +83,8 @@ STATUS: REVISION 3 COMPLETE 2026-10-28 (not committed).
 - [x] E4 Answer: "Bisa. Silakan hubungi nomor 081311654066." (built from CONTACT_PHONE in houseRules.js). FaqSection passes answers through RuleText (new optional `renderAnswer` prop on Accordion) → the number is a wa.me/6281311654066 link (new tab, noopener noreferrer), same style as the Tata Tertib.
 - [x] E5 lint, verify:data, check:placeholders (FAQ gone; 25 left = room size/occupancy + Villa), build OK. Preview 1366 + 390: Alamanda card starts at alamanda1; room card 1-2; FAQ link correct on a7/h14/parahyangan/alamanda; no visible "[ISI:" on any property page; no console errors.
 STATUS: REVISION 4 COMPLETE 2026-10-30 (not committed).
+
+## Revision 5 (owner, 2026-10-31): Siloam instead of UPH College on Tangerang cards
+- [x] F1 TANGERANG_CARD_POIS: 'uph-college' → 'siloam-lippo-village' (A7, Parahyangan, Alamanda cards). UPH College stays in the detail POI list. Still sorted by minutes: A7 Siloam 7, Supermal 10, UPH 12 · Parahyangan Siloam 8, Supermal 12, UPH 14 · Alamanda Supermal 3, Siloam 4, UPH 5.
+- [x] F2 POI name 'Siloam Hospitals Lippo Village' → 'Siloam Hospital Lippo Village' (only one hospital); `cardName: 'Siloam Hospital'` for the homepage card. Also renamed in update-md/homy-properties-poi.md (verify:data matches POI names against it); other older update-md docs keep the old spelling.
+- [x] F3 verify:data (33 route URLs) + lint OK.

@@ -36,7 +36,7 @@ export const POI_CATALOG = {
   'indomaret-taman-permata': { name: 'Indomaret Taman Permata',         category: 'supermarket', lat: '-6.227609', lng: '106.582488' },
   'alfamart-permata-raya':  { name: 'Alfamart Permata Raya',            category: 'supermarket', lat: '-6.224280', lng: '106.591463' },
   'indomaret-harapan-kita': { name: 'Indomaret Harapan Kita',           category: 'supermarket', lat: '-6.219865', lng: '106.601546' },
-  'siloam-lippo-village':   { name: 'Siloam Hospitals Lippo Village',   category: 'rumah-sakit', lat: '-6.225462', lng: '106.598768' },
+  'siloam-lippo-village':   { name: 'Siloam Hospital Lippo Village',    cardName: 'Siloam Hospital', category: 'rumah-sakit', lat: '-6.225462', lng: '106.598768' },
 };
 
 // Approved POIs per property: [catalog id, minutes by motorcycle]. Do not mix between properties.

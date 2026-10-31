@@ -84,7 +84,7 @@ export const KOST_TYPES = {
 
 // Homepage card travel rows (POI ids from pois.js, minutes from POI_MINUTES_BY_SLUG, shown sorted by minutes).
 // No `cardPoiIds` → the card shows the nearest campus only.
-const TANGERANG_CARD_POIS = ['uph', 'uph-college', 'supermal-karawaci'];
+const TANGERANG_CARD_POIS = ['uph', 'siloam-lippo-village', 'supermal-karawaci'];
 
 export const PROPERTIES = [
   /* ------------------------------------------------ 1. A7 */
