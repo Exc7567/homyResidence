@@ -91,7 +91,7 @@ public/images/
 └── a7/og.jpg …    (1200×630, link preview for /a7 — picked up automatically; same for h14/, parahyangan/, alamanda/)
 ```
 
-GitHub Pages is **case-sensitive**: `a7-1.JPG` and `a7-1.jpg` are different files online, even if both work on your computer. Write every name exactly like the file.
+The live site is **case-sensitive**: `a7-1.JPG` and `a7-1.jpg` are different files online, even if both work on your computer. Write every name exactly like the file.
 
 Then list the files in `src/data/properties.js` with the `photos(folder, label, files)` helper, in the order they should appear (the first one is the first slide):
 
@@ -104,7 +104,7 @@ The homepage card opens on the first gallery photo, or on `cardCover` when it is
 
 Room photos go in `roomTypes[].photos` the same way (numbered files in numeric order: `2.jpg` before `10.jpg`). A room type or property without photos uses `noPhoto(label)`: one empty slot with a simple room illustration and "Foto segera hadir" (the Villa uses it now). Replace it with `photos(...)` when the photos arrive.
 
-**Homepage hero:** every page load shows 5 random photos from `HERO_IMAGES` in `src/data/heroImages.js` on the curved row. To add one, copy it into `public/property-pictures/HERO-random/` and add its exact file name to that list (GitHub Pages cannot read the folder by itself). The cards are tall, so keep the subject near the middle. The current `public/images/brand/og-default.jpg` is a generated placeholder — replace it with a real 1200×630 image.
+**Homepage hero:** every page load shows 5 random photos from `HERO_IMAGES` in `src/data/heroImages.js` on the curved row. To add one, copy it into `public/property-pictures/HERO-random/` and add its exact file name to that list (the live site cannot read the folder by itself). The cards are tall, so keep the subject near the middle. The current `public/images/brand/og-default.jpg` is a generated placeholder — replace it with a real 1200×630 image.
 
 ### POI photos
 
@@ -151,24 +151,15 @@ Videos are only downloaded when the visitor taps "Lihat Video".
 
 ---
 
-## 5. Deploy to GitHub Pages and connect the domain
+## 5. Deploy (Vercel) and the domain
 
-One-time setup:
-
-1. Create a GitHub repository and push this project to the `main` branch.
-2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. Every push to `main` now builds and deploys automatically (`.github/workflows/deploy.yml`).
-
-**Custom domain (live since Update 04):** the main address is `https://www.homyresidence.id`; GitHub redirects `homyresidence.id` to it.
-
-- `public/CNAME` contains exactly `www.homyresidence.id` (copied into `dist/` by the build).
-- The site is served from the root `/`: `base: '/'` in `vite.config.js`, and `SITE_URL: https://www.homyresidence.id` in `.github/workflows/deploy.yml` (canonical/link-preview URLs, sitemap, robots).
-- DNS (already done): a `CNAME` record for `www` → the GitHub account's Pages host (`<github-username>.github.io`), and four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-- Because the site deploys with GitHub Actions, GitHub reads the domain from **Settings → Pages → Custom domain** (it must say `www.homyresidence.id`), not from the `CNAME` file. Tick **Enforce HTTPS** there once it is available.
-
-Direct links such as `www.homyresidence.id/alamanda` work on refresh because the build writes `dist/alamanda/index.html` for every open property (with its own link-preview title, description and image). Unknown paths show the in-app 404 page.
-
-Other hosts (only if you move): Netlify → `public/_redirects` with `/*  /index.html  200`; Vercel → `vercel.json` with `{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }`.
+- **Deploys:** every push to `main` deploys to production on Vercel automatically. Other branches and pull requests get their own preview URL. The build settings live in `vercel.json` (`npm ci`, `npm run build`, output `dist/`).
+- **Address:** the main address is `https://homyresidence.id`. `www.homyresidence.id` redirects to it (Vercel → project → **Settings → Domains**).
+- **DNS (at Hostinger):** an `A` record for `@` and a `CNAME` record for `www`, both with the exact values shown on the domain cards in Vercel → **Settings → Domains**.
+- **Direct links:** links such as `homyresidence.id/alamanda` work on refresh because the build writes `dist/alamanda/index.html` for every open property (with its own link-preview title, description and image). Unknown paths get `dist/404.html` (status 404) and show the in-app 404 page. No rewrite is needed.
+- **Analytics:** Vercel → project → **Analytics** and **Speed Insights** tabs.
+- **Meta Pixel:** the base code is in `index.html` (a `<script>` in `<head>` and a `<noscript>` at the top of `<body>`). In-app page views and the WhatsApp `Contact` event are in `src/components/layout/MetaPixelTracker.jsx` + `src/lib/metaPixel.js`. To change the Pixel ID, edit **both** places in `index.html`: the `fbq('init', …)` line and the `noscript` image URL.
+- **File names** stay case-sensitive on the live site.
 
 ---
 
@@ -189,13 +180,14 @@ Then `npm run build` — `/villa-purnava` gets its own page and is added to the 
 ```
 src/
   data/        ← all content (edit here)
-  lib/         helpers: formatRupiah, WhatsApp links, assets, hooks
+  lib/         helpers: formatRupiah, WhatsApp links, assets, hooks, metaPixel.js (Meta Pixel events)
   styles/      tokens.css (design tokens) + component styles; index.css wires Tailwind
-  components/  layout/, common/, home/, detail/
+  components/  layout/ (incl. MetaPixelTracker.jsx), common/, home/, detail/
   pages/       HomePage, PropertyPage, NotFoundPage
 scripts/       prerender-meta.mjs (link previews), check-placeholders.mjs, verify-data.mjs,
                process-poi-photos.mjs + poi-photo-config.mjs (POI photos)
 public/        static files and images
+vercel.json    Vercel build settings (install, build, output folder)
 ```
 
 Animations: Tailwind utilities (`animate-fade-up`, `animate-pop-in`, …) defined in `src/styles/index.css`, plus a scroll-reveal component (`src/components/common/Reveal.jsx`). All motion is switched off for visitors who enable "reduce motion" on their device.

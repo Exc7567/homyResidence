@@ -1,6 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { PROPERTIES } from './data/properties';
+import MetaPixelTracker from './components/layout/MetaPixelTracker';
 import ScrollManager from './components/layout/ScrollManager';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -13,6 +16,9 @@ export default function App() {
   return (
     <>
       <ScrollManager />
+      <MetaPixelTracker />
+      <Analytics />
+      <SpeedInsights />
       <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />

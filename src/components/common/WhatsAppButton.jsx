@@ -31,6 +31,7 @@ export default function WhatsAppButton({
       className={cls}
       data-intent={intent}
       data-property={property?.slug}
+      data-room={room?.name}
       {...rest}
     >
       {icon ?? <WhatsAppIcon />}
