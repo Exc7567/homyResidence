@@ -48,7 +48,7 @@ fbq('track', 'PageView');
 <!-- End Meta Pixel Code -->
   </head>
   <body>
-    <!-- Meta Pixel (noscript) -->
+    <!-- Meta Pixel (noscript): must be in <body>; the build rejects an <img> inside <noscript> in <head> -->
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1107640528767265&ev=PageView&noscript=1"
 /></noscript>

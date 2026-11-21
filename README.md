@@ -159,7 +159,7 @@ Videos are only downloaded when the visitor taps "Lihat Video".
 - **Direct links:** links such as `homyresidence.id/alamanda` work on refresh because the build writes `dist/alamanda/index.html` for every open property (with its own link-preview title, description and image). Unknown paths get `dist/404.html` (status 404) and show the in-app 404 page. No rewrite is needed.
 - **Analytics:** Vercel → project → **Analytics** and **Speed Insights** tabs.
 - **Google Analytics:** the Google Tag Manager snippet (container `GTM-KZD3NQNZ`) is at the top of `<head>` in `index.html`. The container holds the Google Analytics 4 tag (`G-RKVQ7TPRCF`), which also counts in-app page changes by itself. Change tags in Tag Manager (then **Publish**), not in the code; the data is in Google Analytics.
-- **Meta Pixel:** the base code is in `index.html` (a `<script>` in `<head>` and a `<noscript>` at the top of `<body>`). In-app page views and the WhatsApp `Contact` event are in `src/components/layout/MetaPixelTracker.jsx` + `src/lib/metaPixel.js`. To change the Pixel ID, edit **both** places in `index.html`: the `fbq('init', …)` line and the `noscript` image URL.
+- **Meta Pixel:** the base code is in `index.html`: the `<script>` in `<head>`, and the `<noscript>` at the top of `<body>` (the build fails if it is in `<head>`). In-app page views and the WhatsApp `Contact` event are in `src/components/layout/MetaPixelTracker.jsx` + `src/lib/metaPixel.js`. To change the Pixel ID, edit **both** places in `index.html`: the `fbq('init', …)` line and the `noscript` image URL.
 - **File names** stay case-sensitive on the live site.
 
 ---
