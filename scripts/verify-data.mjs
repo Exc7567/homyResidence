@@ -1,5 +1,5 @@
 // Checks src/data against the owner's sources (UPDATE-01, UPDATE-03): room totals, Fanta only in Deluxe,
-// and every POI route URL identical to update-md/homy-properties-poi.md. Usage: npm run verify:data
+// and every POI route URL identical to ALL-MD-HOMYr-RESIDENCE/update-md/homy-properties-poi.md. Usage: npm run verify:data
 import fs from 'node:fs';
 import { PROPERTIES } from '../src/data/properties.js';
 import { houseRulesFor } from '../src/data/houseRules.js';
@@ -16,7 +16,7 @@ for (const p of PROPERTIES.filter((x) => x.status === 'open')) {
   }
 }
 
-const src = 'update-md/homy-properties-poi.md';
+const src = 'ALL-MD-HOMYr-RESIDENCE/update-md/homy-properties-poi.md';
 if (fs.existsSync(src)) {
   const md = fs.readFileSync(src, 'utf8');
   const sections = md.split(/\n## \d+\. /).slice(1);

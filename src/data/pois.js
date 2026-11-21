@@ -1,4 +1,4 @@
-// Points of Interest (approved list: update-md/homy-properties-poi.md, UPDATE-01 §4).
+// Points of Interest (approved list: ALL-MD-HOMYr-RESIDENCE/update-md/homy-properties-poi.md, UPDATE-01 §4).
 // One shared catalog (many POIs appear near several properties) + minutes by motorcycle per property.
 // Coordinates stay strings so the Google Maps route URLs match the owner's source file exactly.
 // Keep this file free of Vite-specific imports: scripts import it in Node.

@@ -10,7 +10,7 @@
 @import './home.css';
 @import './detail.css';
 
-@source not '../../allMD';
+@source not '../../ALL-MD-HOMYr-RESIDENCE';
 
 /* Tailwind theme: only motion is added here. Colors/fonts live in tokens.css
    and are referenced with var() so there is a single source of truth. */

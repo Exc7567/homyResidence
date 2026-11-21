@@ -52,7 +52,7 @@
   /* Typography (Update 03: Josefin Sans everywhere, Nura for the logo text).
      Josefin Sans has a small x-height, so lowercase-heavy text is about 1px larger than it
      was with Inter; digits and capitals are as tall as Inter's, so prices keep their size.
-     The previous Inter values (and how to switch back) are in FONT-AND-LAYOUT-BEFORE-UPDATE-03.md.
+     The previous Inter values (and how to switch back) are in ALL-MD-HOMYr-RESIDENCE/FONT-AND-LAYOUT-BEFORE-UPDATE-03.md.
      Font files and @font-face: src/styles/fonts.css. */
   --font-sans: 'Josefin Sans', 'Century Gothic', Futura, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-logo: 'Nura', 'Josefin Sans', 'Century Gothic', system-ui, sans-serif; /* weights: 900 Black, 200 Extra Light */

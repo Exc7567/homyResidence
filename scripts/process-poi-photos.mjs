@@ -10,7 +10,7 @@ import { POI_CATALOG } from '../src/data/pois.js';
 import { OUTPUT, POI_PHOTO_CONFIG } from './poi-photo-config.mjs';
 
 const SRC_DIR = 'poi-assets';
-const REPORT = 'update-md/poi-photo-report.md';
+const REPORT = 'ALL-MD-HOMYr-RESIDENCE/update-md/poi-photo-report.md';
 const IMAGE_EXT = /\.(webp|jpe?g|png|avif|heic|tiff?)$/i;
 const RATIO = 4 / 3;
 const HEAVY_CROP = 0.6; // report when less than 60% of the original area is kept

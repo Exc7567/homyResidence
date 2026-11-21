@@ -110,7 +110,7 @@ Room photos go in `roomTypes[].photos` the same way (numbered files in numeric o
 
 1. Put the raw photo in `poi-assets/` (any size, any folder). Name the folder or file after the POI, e.g. `poi-assets/pramita/pramita.jpg`.
 2. Run `npm run poi:photos`. Each photo is matched to its POI by name (aliases in `scripts/poi-photo-config.mjs`), cropped to 4:3 and saved as `public/images/poi/<id>.webp` (800×600) and `<id>-sm.webp` (400×300). Originals are never changed.
-3. Read `update-md/poi-photo-report.md` (matched, unmatched, missing, heavy crops).
+3. Read `ALL-MD-HOMYr-RESIDENCE/update-md/poi-photo-report.md` (matched, unmatched, missing, heavy crops).
 4. If a subject is cut off, set `focus: { x, y }` for that POI in `scripts/poi-photo-config.mjs` (0–1 from left/top) and run step 2 again.
 5. Commit `public/images/poi/` and `src/data/poiPhotos.js`.
 
@@ -118,7 +118,7 @@ Room photos go in `roomTypes[].photos` the same way (numbered files in numeric o
 
 - **Josefin Sans** is the font of the whole site; **Nura** is used only for the logo text (header logo and the big homepage headline): "HOMY" in Nura Black, "RESIDENCE" in Nura Extra Light.
 - The web files are in `public/fonts/` (WOFF2, converted 1:1 from the originals in `font/`), declared in `src/styles/fonts.css`, and selected in `src/styles/tokens.css` (`--font-sans`, `--font-logo`, text sizes).
-- The font setup before Update 03 (Inter) is recorded in `FONT-AND-LAYOUT-BEFORE-UPDATE-03.md`, together with the exact steps to switch the site back to it (the Nura logo stays either way).
+- The font setup before Update 03 (Inter) is recorded in `ALL-MD-HOMYr-RESIDENCE/FONT-AND-LAYOUT-BEFORE-UPDATE-03.md`, together with the exact steps to switch the site back to it (the Nura logo stays either way).
 
 ### 3c. Room videos
 

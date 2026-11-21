@@ -4,7 +4,7 @@
    - Nura: logo text only (header logo + homepage hero headline), via --font-logo.
      Black (900) = "HOMY", Extra Light (200) = "RESIDENCE".
    The previous font setup (Inter from Google Fonts) is recorded in
-   FONT-AND-LAYOUT-BEFORE-UPDATE-03.md, with the steps to switch back.
+   ALL-MD-HOMYr-RESIDENCE/FONT-AND-LAYOUT-BEFORE-UPDATE-03.md, with the steps to switch back.
 
    ascent/descent overrides: both fonts sit their capitals high in the line box, so text
    looked too high inside buttons, badges and pills. 85% / 15% centers capitals the way
