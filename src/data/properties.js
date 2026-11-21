@@ -14,7 +14,7 @@ const mapFor = (pin) => ({
 const noPhoto = (label) => [{ src: null, alt: 'Foto belum tersedia', label, placeholder: 'room' }];
 
 // Real photos: public/property-pictures/<folder>/<file>, original file names, in the order given.
-// GitHub Pages is case-sensitive: folder, file name and extension must match the file exactly.
+// The live site is case-sensitive: folder, file name and extension must match the file exactly.
 const photos = (folder, label, files) =>
   files.map((file, i) => ({ src: encodeURI(`/property-pictures/${folder}/${file}`), alt: `${label} — foto ${i + 1}`, label, placeholder: 'room' }));
 

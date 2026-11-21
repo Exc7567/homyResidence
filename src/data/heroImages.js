@@ -1,7 +1,7 @@
 // ============================================================================
 // HOMEPAGE HERO PHOTOS: the one place to list them.
 //
-// The files live in public/property-pictures/HERO-random/. GitHub Pages cannot
+// The files live in public/property-pictures/HERO-random/. The live site cannot
 // list a folder while the site runs, so every file there must also be named
 // below. To add a photo: copy it into that folder, then add its file name here,
 // spelled exactly like the file (upper/lower case and extension too, e.g. '.jpg'

@@ -40,7 +40,7 @@ const { HERO_DIR, HERO_IMAGES } = await import(pathToFileURL(path.join(dataDir, 
 const missing = (imgs = []) => imgs.filter((i) => !i?.src).length;
 
 console.log('\n=== Ringkasan foto & peta per properti ===\n');
-// Hero: every listed file must exist with exactly this name (GitHub Pages is case-sensitive).
+// Hero: every listed file must exist with exactly this name (the live site is case-sensitive).
 const heroDir = path.join('public', HERO_DIR);
 const heroFiles = fs.existsSync(heroDir) ? fs.readdirSync(heroDir) : [];
 const heroMissing = HERO_IMAGES.filter((f) => !heroFiles.includes(f));

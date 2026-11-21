@@ -6,7 +6,7 @@ export const BRAND = {
   name: 'Homy Residence',
   // Hero subtitle, shown under the big "HOMY RESIDENCE" headline.
   tagline: 'Hunian nyaman untuk mahasiswa & profesional',
-  domain: 'www.homyresidence.id',          // main address; homyresidence.id redirects here (public/CNAME)
+  domain: 'homyresidence.id',              // main address; www.homyresidence.id redirects here (Vercel → Settings → Domains)
   whatsappNumber: '6281311654066',         // digits only, international format, no plus sign
   logo: null, // later: '/images/brand/logo.svg' (replaces the text logo everywhere)
   ogImage: '/images/brand/og-default.jpg', // placeholder file must exist (see file 08)

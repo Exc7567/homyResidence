@@ -1,5 +1,5 @@
 // Room videos (Update 06). Scans public/property-videos/ at build time (and on every change in `npm run dev`)
-// and hands the result to the site as the module 'virtual:room-videos'. GitHub Pages cannot list folders,
+// and hands the result to the site as the module 'virtual:room-videos'. The live site cannot list folders,
 // so a new video shows up after the next build, with no code change.
 //
 // Accepted layouts (folder and file names are matched case-insensitively):

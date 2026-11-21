@@ -1,6 +1,6 @@
 // Runs after `vite build`. Writes one HTML file per route with its own <title>,
 // description, canonical, Open Graph and Twitter tags, so link previews (WhatsApp,
-// Instagram, Facebook) and direct loads work on static GitHub Pages.
+// Instagram, Facebook) and direct loads work on the static site (Vercel).
 // Also regenerates sitemap.xml and robots.txt from the data (villa excluded until open).
 import fs from 'node:fs';
 import path from 'node:path';
@@ -42,7 +42,7 @@ function withMeta(html, { title, description, url, image, jsonLd }) {
 
 const open = PROPERTIES.filter((p) => p.status === 'open').sort((a, b) => a.order - b.order);
 
-// Homepage (rewrite so canonical/og use SITE_URL, e.g. the github.io URL before the domain exists).
+// Homepage (rewrite so canonical/og use SITE_URL, or https://<BRAND.domain> when it is not set).
 const homeHtml = withMeta(template, {
   title: `${BRAND.name} | Kost & Villa`,
   description: GENERIC_DESC,
@@ -75,7 +75,8 @@ for (const p of open) {
   fs.writeFileSync(path.join(dist, p.slug, 'index.html'), html);
 }
 
-// GitHub Pages fallback for unknown paths: SPA shell with a neutral title.
+// Fallback for unknown paths: Vercel serves dist/404.html automatically, with HTTP status 404, for any
+// path that has no file. SPA shell with a neutral title, so the app shows its own 404 page.
 fs.writeFileSync(
   path.join(dist, '404.html'),
   withMeta(template, { title: BRAND.name, description: GENERIC_DESC, url: `${SITE}/`, image: DEFAULT_IMAGE }),
